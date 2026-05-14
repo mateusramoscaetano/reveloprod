@@ -43,18 +43,22 @@ export function Servicos() {
         repeat: -1,
       });
 
-      gsap.from(".serv-card", {
-        y: 50,
-        opacity: 0,
-        duration: 0.9,
-        stagger: 0.1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".serv-card",
-          start: "top 92%",
-          toggleActions: "play none none reverse",
-        },
-      });
+      // Cards são animados pelo StickyReveal quando revelados via clip-path;
+      // fora desse contexto, inicia visíveis.
+      if (!ref.current?.closest("[data-sticky-reveal]")) {
+        gsap.from(".serv-card", {
+          y: 50,
+          opacity: 0,
+          duration: 0.9,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".serv-card",
+            start: "top 92%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
     }, ref);
 
     const track = trackRef.current;
@@ -76,7 +80,7 @@ export function Servicos() {
     <section
       id="servicos"
       ref={ref}
-      className="relative bg-brand-dark overflow-hidden pb-20 md:pb-32"
+      className="relative bg-brand-dark overflow-hidden pt-16 md:pt-20 pb-20 md:pb-40"
     >
       {/* Header */}
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14 mb-12">
@@ -105,8 +109,8 @@ export function Servicos() {
             >
               <span
                 className={`font-sans font-black uppercase leading-none select-none transition-colors duration-200 ${item.accent
-                    ? "text-brand-pink group-hover:text-brand-cream"
-                    : "text-brand-cream/50 group-hover:text-brand-pink"
+                  ? "text-brand-pink group-hover:text-brand-cream"
+                  : "text-brand-cream/50 group-hover:text-brand-pink"
                   }`}
                 style={{ fontSize: "clamp(40px,5.5vw,80px)" }}
               >

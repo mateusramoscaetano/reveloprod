@@ -30,7 +30,7 @@ export function SobreNos() {
     <section
       id="sobre"
       ref={ref}
-      className="box-border flex min-h-[100dvh] flex-col overflow-hidden bg-brand-dark pt-16 md:pt-20"
+      className="box-border flex min-h-dvh flex-col overflow-hidden bg-brand-cream/35 pt-16 md:pt-30"
     >
       <div className="mx-auto flex w-full max-w-[1440px] flex-1 flex-col px-6 md:px-10 lg:px-14 pb-10 md:pb-14 min-h-0">
         {/* Bloco título — alinhado ao topo da área útil (referência Flashbang) */}
