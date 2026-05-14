@@ -1,26 +1,36 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* Brand colors */
+  --color-brand-red: #C8253A;
+  --color-brand-pink: #F2AABB;
+  --color-brand-cream: #F0EDE6;
+  --color-brand-dark: #0D0D0D;
+  --color-brand-dark-800: #1A1A1A;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Font families — vars injetadas via next/font/local em layout.tsx */
+  --font-sans: var(--font-nhg), "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-kathy), Georgia, serif;
+  --font-mono: var(--font-b612), monospace;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Display font sizes */
+  --text-display-xl: 160px;
+  --text-display-xl--line-height: 0.86;
+  --text-display-xl--letter-spacing: -0.01em;
+
+  --text-display-lg: 120px;
+  --text-display-lg--line-height: 0.88;
+  --text-display-lg--letter-spacing: -0.01em;
+
+  --text-display-md: 80px;
+  --text-display-md--line-height: 0.9;
+  --text-display-md--letter-spacing: 0em;
+
+  --text-display-sm: 56px;
+  --text-display-sm--line-height: 1;
+  --text-display-sm--letter-spacing: 0em;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
