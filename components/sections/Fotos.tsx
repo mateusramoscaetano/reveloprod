@@ -25,13 +25,19 @@ export function Fotos() {
         ease: "power4.out",
         scrollTrigger: { trigger: ref.current, start: "top 75%" },
       });
-      gsap.from(".foto-card", {
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.07,
-        ease: "power3.out",
-        scrollTrigger: { trigger: ".foto-card", start: "top 82%" },
+
+      gsap.utils.toArray<HTMLElement>(".foto-card").forEach((card) => {
+        gsap.from(card, {
+          y: 52,
+          opacity: 0,
+          scale: 0.94,
+          duration: 0.72,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 90%",
+          },
+        });
       });
     }, ref);
 

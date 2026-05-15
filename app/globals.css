@@ -10,6 +10,7 @@
 
   /* Font families — vars injetadas via next/font/local em layout.tsx */
   --font-sans: var(--font-nhg), "Helvetica Neue", Arial, sans-serif;
+  --font-sans-tight: var(--font-nhg-text), "Helvetica Neue", Arial, sans-serif;
   --font-serif: var(--font-kathy), Georgia, serif;
   --font-mono: var(--font-b612), monospace;
 

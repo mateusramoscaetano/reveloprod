@@ -27,17 +27,18 @@ export function Videos() {
           toggleActions: "play none none reverse",
         },
       });
-      gsap.from(".vid-card", {
-        y: 60,
-        opacity: 0,
-        duration: 0.9,
-        stagger: 0.1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".vid-card",
-          start: "top 92%",
-          toggleActions: "play none none reverse",
-        },
+      gsap.utils.toArray<HTMLElement>(".vid-card").forEach((card) => {
+        gsap.from(card, {
+          y: 60,
+          opacity: 0,
+          scale: 0.95,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 90%",
+          },
+        });
       });
     }, ref);
 

@@ -52,6 +52,44 @@ const neueHaas = localFont({
   display: "swap",
 });
 
+/* ── Neue Haas Grotesk Text — variante tight para display hero ── */
+const neueHaasText = localFont({
+  src: [
+    {
+      path: "../fonts/neue-haas-grotesk-font-fanily/neuehaasgrottext-55roman-trial.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/neue-haas-grotesk-font-fanily/neuehaasgrottext-56italic-trial.otf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../fonts/neue-haas-grotesk-font-fanily/neuehaasgrottext-65medium-trial.otf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../fonts/neue-haas-grotesk-font-fanily/neuehaasgrottext-66mediumitalic-trial.otf",
+      weight: "500",
+      style: "italic",
+    },
+    {
+      path: "../fonts/neue-haas-grotesk-font-fanily/neuehaasgrottext-75bold-trial.otf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../fonts/neue-haas-grotesk-font-fanily/neuehaasgrottext-76bolditalic-trial.otf",
+      weight: "700",
+      style: "italic",
+    },
+  ],
+  variable: "--font-nhg-text",
+  display: "swap",
+});
+
 /* ── Kathy Style — serif itálico de acento ── */
 const kathyStyle = localFont({
   src: [
@@ -110,7 +148,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${neueHaas.variable} ${kathyStyle.variable} ${b612.variable}`}
+      className={`${neueHaas.variable} ${neueHaasText.variable} ${kathyStyle.variable} ${b612.variable}`}
     >
       <body className="bg-brand-dark text-brand-cream antialiased">
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
