@@ -4,6 +4,7 @@ import { gsap } from "@/lib/gsap";
 import { PhotoCard } from "@/components/ui/PhotoCard";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/sections/Footer";
+import { MarcaPattern } from "@/components/marca/MarcaPattern";
 
 const allPhotos: Array<{ title: string; category: string }> = [
   { title: "Ensaio Antecipado", category: "Formatura" },
@@ -51,7 +52,12 @@ export default function FotosPage() {
 
       {/* Page hero */}
       <section className="bg-brand-dark-800 pt-36 pb-20 relative overflow-hidden border-b border-brand-cream/10">
-        <div className="max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24 fpage-hero">
+        <MarcaPattern
+          className="absolute inset-0 z-0 mix-blend-soft-light"
+          opacity={0.14}
+          backgroundPosition="70% 30%"
+        />
+        <div className="max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24 fpage-hero relative z-10">
           <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-brand-cream/40 mb-6">
             — Galeria completa
           </p>

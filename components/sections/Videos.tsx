@@ -3,6 +3,8 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 import { VideoCard } from "@/components/ui/VideoCard";
+import { MarcaPattern } from "@/components/marca/MarcaPattern";
+import { MarcaAsset } from "@/components/marca/MarcaAsset";
 
 const videos = [
   { title: "Turma de Medicina 2024", category: "Formatura", year: "2024" },
@@ -13,6 +15,7 @@ const videos = [
 
 export function Videos() {
   const ref = useRef<HTMLElement>(null);
+  const asset2Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -40,6 +43,25 @@ export function Videos() {
           },
         });
       });
+
+      gsap.from(asset2Ref.current, {
+        x: -40,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ref.current, start: "top 70%" },
+      });
+
+      gsap.to(asset2Ref.current, {
+        y: -50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
     }, ref);
 
     return () => ctx.revert();
@@ -47,7 +69,21 @@ export function Videos() {
 
   return (
     <section ref={ref} className="relative bg-brand-cream overflow-hidden py-20 md:py-32">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14">
+      <MarcaPattern
+        className="absolute inset-0 z-0"
+        opacity={0.055}
+        backgroundPosition="left bottom"
+      />
+
+      {/* Asset-2: decorativo lado esquerdo */}
+      <div
+        ref={asset2Ref}
+        className="pointer-events-none absolute left-[-4%] top-[8%] z-[1] w-[200px] md:w-[280px] hidden md:block"
+      >
+        <MarcaAsset asset={2} opacity={0.09} className="w-full mix-blend-multiply" />
+      </div>
+
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14">
 
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-14">
@@ -66,9 +102,10 @@ export function Videos() {
           </div>
           <Link
             href="/videos"
-            className="self-start md:self-end mb-1 bg-brand-dark text-brand-cream rounded-none px-8 py-4 font-sans font-black uppercase text-[15px] tracking-wider hover:bg-brand-red transition-colors duration-300 whitespace-nowrap"
+            className="group self-start md:self-end mb-1 bg-brand-dark text-brand-cream rounded-none px-8 py-4 font-sans font-black uppercase text-[15px] tracking-wider hover:bg-brand-red transition-colors duration-300 whitespace-nowrap inline-flex items-center gap-2"
           >
-            Ver todos →
+            Ver todos
+            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
           </Link>
         </div>
 

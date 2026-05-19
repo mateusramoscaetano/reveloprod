@@ -3,6 +3,8 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 import { PhotoCard } from "@/components/ui/PhotoCard";
+import { MarcaPattern } from "@/components/marca/MarcaPattern";
+import { MarcaAsset } from "@/components/marca/MarcaAsset";
 
 const photos: Array<{ title: string; category: string }> = [
   { title: "Ensaio Antecipado", category: "Formatura" },
@@ -15,6 +17,7 @@ const photos: Array<{ title: string; category: string }> = [
 
 export function Fotos() {
   const ref = useRef<HTMLElement>(null);
+  const asset1Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -39,6 +42,25 @@ export function Fotos() {
           },
         });
       });
+
+      gsap.from(asset1Ref.current, {
+        x: 40,
+        opacity: 0,
+        duration: 1.3,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ref.current, start: "top 70%" },
+      });
+
+      gsap.to(asset1Ref.current, {
+        y: -60,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.2,
+        },
+      });
     }, ref);
 
     return () => ctx.revert();
@@ -46,7 +68,21 @@ export function Fotos() {
 
   return (
     <section ref={ref} className="relative bg-brand-dark overflow-hidden py-20 md:py-32">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14">
+      <MarcaPattern
+        className="absolute inset-0 z-0 mix-blend-soft-light"
+        opacity={0.1}
+        backgroundPosition="right top"
+      />
+
+      {/* Asset-1: decorativo canto superior-direito */}
+      <div
+        ref={asset1Ref}
+        className="pointer-events-none absolute top-[-5%] right-[-4%] z-[1] w-[180px] md:w-[250px] hidden md:block"
+      >
+        <MarcaAsset asset={1} opacity={0.12} className="w-full mix-blend-soft-light" />
+      </div>
+
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14">
 
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-14">
@@ -65,9 +101,10 @@ export function Fotos() {
           </div>
           <Link
             href="/fotos"
-            className="self-start md:self-end mb-1 bg-brand-red text-brand-cream rounded-none px-8 py-4 font-sans font-black uppercase text-[15px] tracking-wider hover:bg-brand-pink hover:text-brand-dark transition-colors duration-300 whitespace-nowrap"
+            className="group self-start md:self-end mb-1 bg-brand-red text-brand-cream rounded-none px-8 py-4 font-sans font-black uppercase text-[15px] tracking-wider hover:bg-brand-pink hover:text-brand-dark transition-colors duration-300 whitespace-nowrap inline-flex items-center gap-2"
           >
-            Ver todas →
+            Ver todas
+            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
           </Link>
         </div>
 

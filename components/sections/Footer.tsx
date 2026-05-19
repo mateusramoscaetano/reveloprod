@@ -2,9 +2,11 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
+import { MarcaAsset } from "@/components/marca/MarcaAsset";
 
 export function Footer() {
   const ref = useRef<HTMLElement>(null);
+  const asset3Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -33,9 +35,47 @@ export function Footer() {
           scrollTrigger: { trigger: ref.current, start: "top 80%" },
         }
       );
+
+      gsap.from(asset3Ref.current, {
+        opacity: 0,
+        scale: 0.88,
+        duration: 1.5,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ref.current, start: "top 85%" },
+      });
+
+      gsap.to(asset3Ref.current, {
+        rotation: 360,
+        duration: 140,
+        ease: "none",
+        repeat: -1,
+        transformOrigin: "center center",
+      });
     }, ref);
 
-    return () => ctx.revert();
+    // Hover nos círculos sociais
+    const socials = ref.current?.querySelectorAll<HTMLElement>(".foot-social-icon") ?? [];
+    const handlers: Array<{ el: HTMLElement; onEnter: () => void; onLeave: () => void }> = [];
+
+    socials.forEach((icon) => {
+      const onEnter = () => {
+        gsap.to(icon, { scale: 1.15, rotation: 8, duration: 0.3, ease: "back.out(1.5)" });
+      };
+      const onLeave = () => {
+        gsap.to(icon, { scale: 1, rotation: 0, duration: 0.4, ease: "elastic.out(1, 0.5)" });
+      };
+      icon.addEventListener("mouseenter", onEnter);
+      icon.addEventListener("mouseleave", onLeave);
+      handlers.push({ el: icon, onEnter, onLeave });
+    });
+
+    return () => {
+      ctx.revert();
+      handlers.forEach(({ el, onEnter, onLeave }) => {
+        el.removeEventListener("mouseenter", onEnter);
+        el.removeEventListener("mouseleave", onLeave);
+      });
+    };
   }, []);
 
   return (
@@ -44,6 +84,14 @@ export function Footer() {
       ref={ref}
       className="relative bg-brand-dark border-t border-brand-cream/10 overflow-hidden"
     >
+      {/* Asset-3: decorativo canto inferior direito */}
+      <div
+        ref={asset3Ref}
+        className="pointer-events-none absolute bottom-[-15%] right-[-8%] z-[1] w-[240px] md:w-[340px] hidden md:block"
+      >
+        <MarcaAsset asset={3} opacity={0.06} className="w-full mix-blend-soft-light" />
+      </div>
+
       {/* SVG decorativo */}
       <div className="pointer-events-none absolute top-10 right-10 hidden lg:block">
         <svg width="220" height="150" viewBox="0 0 220 150" fill="none">
@@ -95,9 +143,10 @@ export function Footer() {
           </div>
           <a
             href="mailto:ola@revelo.com.br"
-            className="self-start md:self-end flex-shrink-0 bg-brand-red text-brand-cream rounded-none px-10 py-6 font-sans font-black uppercase text-[16px] tracking-wider hover:bg-brand-pink hover:text-brand-dark transition-colors duration-300 whitespace-nowrap"
+            className="group self-start md:self-end flex-shrink-0 bg-brand-red text-brand-cream rounded-none px-10 py-6 font-sans font-black uppercase text-[16px] tracking-wider hover:bg-brand-pink hover:text-brand-dark transition-colors duration-300 whitespace-nowrap inline-flex items-center gap-3"
           >
-            Fale conosco →
+            Fale conosco
+            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
           </a>
         </div>
       </div>
@@ -168,7 +217,7 @@ export function Footer() {
                 { label: "Pinterest", handle: "Revelô Inspirações" },
               ].map((s) => (
                 <div key={s.label} className="flex items-center gap-3 group cursor-pointer">
-                  <div className="w-9 h-9 border border-brand-cream/20 rounded-full flex items-center justify-center group-hover:border-brand-pink transition-colors duration-300 flex-shrink-0">
+                  <div className="foot-social-icon w-9 h-9 border border-brand-cream/20 rounded-full flex items-center justify-center group-hover:border-brand-pink transition-colors duration-300 flex-shrink-0">
                     <span className="font-mono text-[9px] text-brand-cream/35 group-hover:text-brand-pink transition-colors duration-300">
                       {s.label[0]}
                     </span>

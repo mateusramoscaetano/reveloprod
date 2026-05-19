@@ -1,15 +1,11 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
+import { MarcaAsset } from "@/components/marca/MarcaAsset";
 
-/**
- * Seção "Cada uma delas" — replica o padrão visual central do manual:
- * letras gigantes RVLÔ em Kathy Style como plano de fundo,
- * fotos posicionadas dentro/ao redor dos letterforms.
- * Até as fotos chegarem, usa placeholders coloridos com a mesma composição.
- */
 export function CadaUmaDelas() {
   const ref = useRef<HTMLElement>(null);
+  const asset2Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -25,7 +21,6 @@ export function CadaUmaDelas() {
         scale: 0.94, opacity: 0, duration: 1.2, ease: "power3.out",
         scrollTrigger: { trigger: ".cada-letter", start: "top 78%" },
       });
-      // Paralax nas fotos placeholder
       gsap.to(".cada-photo-1", {
         y: -40, ease: "none",
         scrollTrigger: { trigger: ref.current, start: "top bottom", end: "bottom top", scrub: true },
@@ -33,6 +28,25 @@ export function CadaUmaDelas() {
       gsap.to(".cada-photo-2", {
         y: 40, ease: "none",
         scrollTrigger: { trigger: ref.current, start: "top bottom", end: "bottom top", scrub: true },
+      });
+
+      gsap.from(asset2Ref.current, {
+        opacity: 0,
+        scale: 0.9,
+        duration: 1.4,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ref.current, start: "top 75%" },
+      });
+
+      gsap.to(asset2Ref.current, {
+        y: 30,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 0.8,
+        },
       });
     }, ref);
     return () => ctx.revert();
@@ -53,6 +67,14 @@ export function CadaUmaDelas() {
         }}
       />
 
+      {/* Asset-2: decorativo direita, bem sutil */}
+      <div
+        ref={asset2Ref}
+        className="pointer-events-none absolute right-[-3%] bottom-[-8%] z-[1] w-[180px] md:w-[240px] hidden md:block"
+      >
+        <MarcaAsset asset={2} opacity={0.1} className="w-full mix-blend-soft-light" />
+      </div>
+
       {/* Letras RVLÔ gigantes — plano de fundo */}
       <div
         className="cada-letter absolute inset-0 flex items-center justify-center pointer-events-none select-none"
@@ -66,7 +88,6 @@ export function CadaUmaDelas() {
         </p>
       </div>
 
-      {/* Fotos placeholder posicionadas sobre as letras */}
       {/* Foto 1 — sobre o R/V */}
       <div
         className="cada-photo-1 absolute bg-brand-dark-800 border border-brand-cream/10"

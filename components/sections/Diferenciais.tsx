@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
+import { MarcaAsset } from "@/components/marca/MarcaAsset";
 
 const items = [
   {
@@ -27,6 +28,7 @@ const items = [
 
 export function Diferenciais() {
   const ref = useRef<HTMLElement>(null);
+  const asset3Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -45,9 +47,68 @@ export function Diferenciais() {
         ease: "power3.out",
         scrollTrigger: { trigger: ".dif-row", start: "top 80%" },
       });
+
+      gsap.from(asset3Ref.current, {
+        opacity: 0,
+        scale: 0.88,
+        duration: 1.5,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ref.current, start: "top 72%" },
+      });
+
+      gsap.to(asset3Ref.current, {
+        rotation: 360,
+        duration: 120,
+        ease: "none",
+        repeat: -1,
+        transformOrigin: "center center",
+      });
+
+      gsap.to(asset3Ref.current, {
+        y: -70,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
     }, ref);
 
-    return () => ctx.revert();
+    // Hover interativo nas linhas de diferenciais
+    const rows = ref.current?.querySelectorAll<HTMLElement>(".dif-row") ?? [];
+    const handlers: Array<{ el: HTMLElement; onEnter: () => void; onLeave: () => void }> = [];
+
+    rows.forEach((row) => {
+      const check = row.querySelector<HTMLElement>(".dif-check");
+
+      const onEnter = () => {
+        gsap.to(row, { x: 10, duration: 0.35, ease: "power2.out" });
+        if (check) {
+          gsap.to(check, { rotation: 20, scale: 1.35, duration: 0.3, ease: "back.out(2)" });
+        }
+      };
+
+      const onLeave = () => {
+        gsap.to(row, { x: 0, duration: 0.45, ease: "power2.out" });
+        if (check) {
+          gsap.to(check, { rotation: 0, scale: 1, duration: 0.35, ease: "power2.out" });
+        }
+      };
+
+      row.addEventListener("mouseenter", onEnter);
+      row.addEventListener("mouseleave", onLeave);
+      handlers.push({ el: row, onEnter, onLeave });
+    });
+
+    return () => {
+      ctx.revert();
+      handlers.forEach(({ el, onEnter, onLeave }) => {
+        el.removeEventListener("mouseenter", onEnter);
+        el.removeEventListener("mouseleave", onLeave);
+      });
+    };
   }, []);
 
   return (
@@ -64,6 +125,14 @@ export function Diferenciais() {
           backgroundSize: "180px 180px",
         }}
       />
+
+      {/* Asset-3: canto esquerdo com rotação lenta */}
+      <div
+        ref={asset3Ref}
+        className="pointer-events-none absolute top-[-15%] left-[-10%] z-[1] w-[260px] md:w-[380px] hidden md:block"
+      >
+        <MarcaAsset asset={3} opacity={0.1} className="w-full mix-blend-soft-light" />
+      </div>
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14">
 
@@ -97,9 +166,9 @@ export function Diferenciais() {
           {items.map((item, i) => (
             <div
               key={i}
-              className="dif-row flex items-start gap-6 md:gap-12 py-6 md:py-8 border-b border-dashed border-brand-cream/20 group"
+              className="dif-row flex items-start gap-6 md:gap-12 py-6 md:py-8 border-b border-dashed border-brand-cream/20 group cursor-default"
             >
-              <span className="font-mono text-brand-pink text-[14px] flex-shrink-0 mt-1 w-5">✓</span>
+              <span className="dif-check font-mono text-brand-pink text-[14px] flex-shrink-0 mt-1 w-5 inline-block">✓</span>
               <div className="flex flex-col md:flex-row gap-2 md:gap-16 flex-1 md:items-baseline">
                 <h3
                   className="font-sans font-black uppercase text-brand-cream flex-shrink-0 md:w-72 group-hover:text-brand-pink transition-colors duration-300 leading-tight"

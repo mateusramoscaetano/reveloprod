@@ -4,6 +4,7 @@ import { gsap } from "@/lib/gsap";
 import { VideoCard } from "@/components/ui/VideoCard";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/sections/Footer";
+import { MarcaPattern } from "@/components/marca/MarcaPattern";
 
 const allVideos = [
   { title: "Turma de Medicina 2024", category: "Formatura", year: "2024" },
@@ -47,15 +48,20 @@ export default function VideosPage() {
 
       {/* Page hero */}
       <section className="bg-brand-red pt-36 pb-20 relative overflow-hidden">
+        <MarcaPattern
+          className="absolute inset-0 z-0 mix-blend-overlay"
+          opacity={0.18}
+          backgroundPosition="20% 50%"
+        />
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          className="pointer-events-none absolute inset-0 z-[1] opacity-[0.04]"
           style={{
             backgroundImage:
               "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
             backgroundSize: "200px 200px",
           }}
         />
-        <div className="max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24 vpage-hero">
+        <div className="max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24 vpage-hero relative z-10">
           <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-brand-cream/60 mb-6">
             — Galeria completa
           </p>

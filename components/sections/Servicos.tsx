@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
+import { MarcaAsset } from "@/components/marca/MarcaAsset";
 
 const tickerItems = [
   { label: "FORMATURAS", accent: false },
@@ -33,6 +34,7 @@ export function Servicos() {
   const ref = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
+  const asset1Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -43,8 +45,6 @@ export function Servicos() {
         repeat: -1,
       });
 
-      // Cards são animados pelo StickyReveal quando revelados via clip-path;
-      // fora desse contexto, inicia visíveis.
       if (!ref.current?.closest("[data-sticky-reveal]")) {
         gsap.from(".serv-card", {
           y: 50,
@@ -59,6 +59,25 @@ export function Servicos() {
           },
         });
       }
+
+      gsap.from(asset1Ref.current, {
+        opacity: 0,
+        x: 30,
+        duration: 1.3,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ref.current, start: "top 70%" },
+      });
+
+      gsap.to(asset1Ref.current, {
+        y: -60,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
     }, ref);
 
     const track = trackRef.current;
@@ -82,6 +101,14 @@ export function Servicos() {
       ref={ref}
       className="relative bg-brand-dark overflow-hidden pt-16 md:pt-20 pb-20 md:pb-40"
     >
+      {/* Asset-1: decorativo canto direito */}
+      <div
+        ref={asset1Ref}
+        className="pointer-events-none absolute top-[5%] right-[-3%] z-[1] w-[160px] md:w-[210px] hidden md:block"
+      >
+        <MarcaAsset asset={1} opacity={0.08} className="w-full mix-blend-soft-light" />
+      </div>
+
       {/* Header */}
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14 mb-12">
         <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-cream/40 mb-6">
