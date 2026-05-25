@@ -6,23 +6,23 @@ import { MarcaAsset } from "@/components/marca/MarcaAsset";
 const items = [
   {
     title: "Olhar editorial",
-    desc: "Estética de nível de revista, com a naturalidade de quem viveu o momento.",
+    desc: "Um olhar que une estética editorial e emoção, transformando momentos espontâneos em imagens marcantes, além do registro.",
   },
   {
     title: "Entrega no prazo",
-    desc: "Compromisso com timeline claro — sem surpresas.",
+    desc: "Compromisso com prazos claros e uma entrega organizada do início ao fim, porque a gente sabe a ansiedade de reviver tudo.",
   },
   {
     title: "Identidade própria",
-    desc: "Paleta e tratamento consistentes, reconhecíveis à primeira vista.",
+    desc: "Cada imagem carrega a assinatura visual da Revelô: moderna, intensa e atemporal.",
   },
   {
     title: "Atendimento próximo",
-    desc: "Briefing antes, presença durante, suporte depois.",
+    desc: "Presença, atenção aos detalhes e suporte antes, durante e depois de cada experiência.",
   },
   {
     title: "Alta resolução",
-    desc: "Arquivos prontos para impressão, redes e recordação.",
+    desc: "Arquivos em alta qualidade, preparados para impressão, compartilhamento e para atravessar o tempo.",
   },
 ];
 
@@ -182,6 +182,23 @@ export function Diferenciais() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* CTA */}
+        <div className="mt-16 md:mt-20 flex flex-col md:flex-row items-start md:items-end justify-between gap-8">
+          <p
+            className="font-serif italic text-brand-cream leading-[1.1] max-w-2xl"
+            style={{ fontSize: "clamp(28px,3.8vw,56px)" }}
+          >
+            Seu próximo grande momento merece ser revelado.
+          </p>
+          <a
+            href="#contato"
+            className="group flex-shrink-0 self-start md:self-end bg-brand-cream text-brand-dark px-10 py-5 font-sans font-black uppercase text-[14px] tracking-wider hover:bg-brand-pink hover:text-brand-dark transition-colors duration-300 whitespace-nowrap inline-flex items-center gap-3"
+          >
+            Fale conosco
+            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a>
         </div>
       </div>
     </section>

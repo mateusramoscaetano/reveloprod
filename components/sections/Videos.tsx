@@ -69,11 +69,7 @@ export function Videos() {
 
   return (
     <section ref={ref} className="relative bg-brand-cream overflow-hidden py-20 md:py-32">
-      <MarcaPattern
-        className="absolute inset-0 z-0"
-        opacity={0.055}
-        backgroundPosition="left bottom"
-      />
+
 
       {/* Asset-2: decorativo lado esquerdo */}
       <div

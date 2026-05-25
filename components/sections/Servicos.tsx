@@ -16,17 +16,17 @@ const cards = [
   {
     num: "01",
     title: "FORMATURAS",
-    desc: "Do ensaio antecipado à festa — cada etapa documentada com cuidado editorial. Entregamos história, não só foto.",
+    desc: "Da ansiedade dos primeiros momentos até a celebração final: registramos cada detalhe da experiência universitária do jeito que ela merece ser lembrada. ",
   },
   {
     num: "02",
     title: "FAMILY",
-    desc: "Sessões que capturam vínculo e dinâmica reais. Sem poses ensaiadas — só o que vale lembrar.",
+    desc: "Um dia pensado para viver, sentir e registrar ao lado das pessoas que transformaram essa conquista em realidade. A criação da Revelô para você e sua família.",
   },
   {
     num: "03",
     title: "EVENTOS",
-    desc: "Corporativos, sociais ou íntimos. Cobertura completa em foto e vídeo com olhar editorial.",
+    desc: "Registros para eventos, experiências e celebrações que merecem continuar sendo vividas mesmo depois que acabam.",
   },
 ];
 
@@ -132,7 +132,7 @@ export function Servicos() {
           {allItems.map((item, i) => (
             <div
               key={i}
-              className="flex items-center flex-shrink-0 px-10 group cursor-default"
+              className="flex items-center shrink-0 px-10 group cursor-default"
             >
               <span
                 className={`font-sans font-black uppercase leading-none select-none transition-colors duration-200 ${item.accent

@@ -38,16 +38,12 @@ export function StickyReveal() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ onUpdate: updateClip });
 
-      // Fase 1: ty desce de 100→50 enquanto cada si cai de 100→0 em ordens diferentes.
-      // Cada coluna cruza o fundo da tela (ty+si<100) em momentos distintos → escada.
       tl.to(state, { ty: 50, duration: 2.5, ease: "power1.inOut" }, 0)
         .to(state, { s4: 0, duration: 1.5, ease: "power3.out" }, 0)
         .to(state, { s2: 0, duration: 1.4, ease: "power2.out" }, 0.4)
         .to(state, { s3: 0, duration: 1.3, ease: "power3.out" }, 0.85)
         .to(state, { s1: 0, duration: 1.2, ease: "power2.out" }, 1.3)
-        // Fase 2: todas niveladas, elemento sobe junto até preencher o viewport
         .to(state, { ty: 0, duration: 1.5, ease: "power2.inOut" }, 2.8)
-        // Cards entram quando o reveal está completo
         .from(".serv-card", {
           y: 40,
           opacity: 0,
@@ -65,7 +61,7 @@ export function StickyReveal() {
         scrub: 1.5,
         animation: tl,
       });
-    });
+    }, wrapperRef);
 
     ScrollTrigger.refresh();
 
@@ -80,16 +76,16 @@ export function StickyReveal() {
 
   return (
     <div ref={wrapperRef} data-sticky-reveal className="relative min-h-screen overflow-hidden">
-      {/* SobreNos: pinned background layer */}
+      {/* SobreNos: camada de fundo pinada */}
       <div className="absolute inset-0 z-0 min-h-screen">
         <SobreNos />
       </div>
 
-      {/* Servicos: foreground, revealed by the staircase clip-path */}
+      {/* Servicos: revelado pelo clip-path de escada */}
       <div
         ref={servicosRef}
         className="relative z-10 min-h-screen"
-        style={{ willChange: "clip-path" }}
+        style={{ willChange: "clip-path, transform" }}
       >
         <Servicos />
       </div>

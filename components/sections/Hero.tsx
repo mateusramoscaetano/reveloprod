@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import { MarcaPattern } from "@/components/marca/MarcaPattern";
 import { MarcaAsset } from "@/components/marca/MarcaAsset";
 
@@ -144,91 +144,69 @@ export function Hero() {
         }}
       />
 
-      <div className="hero-bg pointer-events-none absolute inset-0 z-0 overflow-hidden flex items-end pb-0">
-        <p
-          className="font-serif text-brand-dark/10 whitespace-nowrap leading-none select-none tracking-tight"
-          style={{ fontSize: "34vw", lineHeight: 0.8 }}
-        >
-          RVLÔ
-        </p>
+      <div className="hero-bg pointer-events-none absolute inset-0 z-0 overflow-hidden flex items-end justify-center md:justify-start pb-0">
+        <img
+          src="/marca/rvlo-black.svg"
+          alt=""
+          width={278}
+          height={131}
+          decoding="async"
+          draggable={false}
+          className="w-[min(185vw,1600px)] max-w-none h-auto shrink-0 select-none object-contain object-bottom opacity-10 translate-y-[5%] md:translate-x-[-2%] lg:translate-x-[-4%]"
+        />
       </div>
 
       {/* Asset-3: decorativo canto inferior-esquerdo com rotação lenta */}
       <div
         ref={asset3Ref}
-        className="pointer-events-none absolute bottom-[-12%] left-[-7%] z-[3] w-[220px] md:w-[320px]"
+        className="pointer-events-none absolute top-[-22%] left-[-7%] z-3 w-[220px] md:w-[320px]"
       >
         <MarcaAsset asset={3} opacity={0.13} className="w-full mix-blend-soft-light" />
       </div>
 
-      <MarcaPattern
-        className="hero-marca-deco pointer-events-none absolute z-[5] -right-[12%] md:-right-[6%] top-[6%] md:top-[10%] h-[min(62vh,560px)] w-[min(95vw,560px)] mix-blend-soft-light"
-        opacity={0.22}
-        backgroundSize="contain"
-        backgroundPosition="right center"
-      />
+
 
       <div className="relative z-20 flex-1 flex flex-col md:flex-row">
-        <div className="flex-1 flex flex-col justify-center px-6 md:px-10 lg:px-14 py-6 md:py-10">
-          <div className="overflow-hidden">
-            <h1
-              className="hero-line font-sans-tight font-black uppercase text-brand-cream leading-[0.95]"
-              style={{ fontSize: "clamp(38px,7.2vw,95px)" }}
-            >
-              SE ENTREGUE
-            </h1>
-          </div>
+        <div
+          className="flex-1 flex flex-col justify-center px-6 md:px-10 lg:px-14 py-6 md:py-10"
+          style={{
+            fontSize: "clamp(2rem, 5.2vw + 0.55rem, 4.75rem)",
+            lineHeight: 1.06,
+          }}
+        >
+          <div className="flex flex-col gap-y-2 md:gap-y-2.5">
+            <div className="overflow-hidden">
+              <h1 className="hero-line font-sans-tight font-black uppercase tracking-tight text-brand-cream leading-[inherit] text-[1.5em]">
+                REVELAMOS
+              </h1>
+            </div>
 
-          <div className="overflow-hidden">
-            <h1
-              className="hero-line font-sans-tight font-black uppercase text-brand-cream leading-[0.95]"
-              style={{ fontSize: "clamp(38px,7.2vw,95px)" }}
-            >
-              POR COMPLETO
-            </h1>
-          </div>
+            <div className="overflow-hidden">
+              <h1 className="hero-line font-serif italic text-brand-cream leading-[inherit] text-[1em] pb-[0.06em]">
+                aquilo
+              </h1>
+            </div>
 
-          <div className="overflow-hidden flex flex-wrap items-baseline leading-none">
-            <h1
-              className="hero-line font-sans-tight font-black uppercase text-brand-cream leading-[0.95] mr-[0.2em]"
-              style={{ fontSize: "clamp(38px,7.2vw,95px)" }}
-            >
-              AO
-            </h1>
-            <h1
-              className="hero-line font-serif text-brand-cream leading-[0.95] mr-[0.2em]"
-              style={{ fontSize: "clamp(40px,7.8vw,116px)", fontStyle: "normal" }}
-            >
-              MELHOR
-            </h1>
-            <h1
-              className="hero-line font-sans-tight font-black uppercase text-brand-cream leading-[0.95]"
-              style={{ fontSize: "clamp(38px,7.2vw,95px)" }}
-            >
-              QUE
-            </h1>
-          </div>
+            <div className="overflow-hidden">
+              <h1 className="hero-line font-sans-tight font-black uppercase tracking-tight text-brand-cream leading-[inherit] text-[1em]">
+                QUE SE É
+              </h1>
+            </div>
 
-          <div className="overflow-hidden flex flex-wrap items-baseline leading-none">
-            <h1
-              className="hero-line font-sans-tight font-black uppercase text-brand-cream leading-[0.95] mr-[0.2em]"
-              style={{ fontSize: "clamp(38px,7.2vw,95px)" }}
-            >
-              SE PODE
-            </h1>
-            <h1
-              className="hero-line font-serif text-brand-dark leading-[0.95]"
-              style={{ fontSize: "clamp(40px,7.8vw,116px)", fontStyle: "normal" }}
-            >
-              FAZER.
-            </h1>
+            <div className="overflow-hidden">
+              <div className="flex flex-wrap items-baseline gap-x-[0.28em] gap-y-1">
+                <h1 className="hero-line font-serif italic text-brand-cream leading-[inherit] text-[1em] shrink-0 pb-[0.06em]">
+                  incapaz
+                </h1>
+                <h1 className="hero-line font-sans-tight font-black uppercase tracking-tight text-brand-dark leading-[inherit] text-[1em] min-w-0">
+                  DE ENXERGAR.
+                </h1>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="hero-photo relative w-full md:w-[40%] lg:w-[38%] min-h-[56vw] md:min-h-0 shrink-0 overflow-hidden">
-          <div className="absolute inset-0 bg-brand-dark" />
-          <div className="absolute left-0 top-0 bottom-0 w-px bg-brand-cream/5 hidden md:block" />
-        </div>
+
       </div>
 
       <div className="relative z-20 hero-bottom border-t border-brand-cream/10 px-6 md:px-10 py-4 flex justify-between items-center">

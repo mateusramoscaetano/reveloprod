@@ -75,17 +75,19 @@ export function CadaUmaDelas() {
         <MarcaAsset asset={2} opacity={0.1} className="w-full mix-blend-soft-light" />
       </div>
 
-      {/* Letras RVLÔ gigantes — plano de fundo */}
       <div
-        className="cada-letter absolute inset-0 flex items-center justify-center pointer-events-none select-none"
+        className="cada-letter absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
         style={{ zIndex: 1 }}
       >
-        <p
-          className="font-serif text-brand-dark/20 whitespace-nowrap leading-none tracking-tight"
-          style={{ fontSize: "clamp(160px,28vw,460px)" }}
-        >
-          RVLÔ
-        </p>
+        <img
+          src="/marca/rvlo-black.svg"
+          alt=""
+          width={278}
+          height={131}
+          decoding="async"
+          draggable={false}
+          className="w-[clamp(480px,56vw,1100px)] max-w-none h-auto shrink-0 object-contain opacity-20"
+        />
       </div>
 
       {/* Foto 1 — sobre o R/V */}

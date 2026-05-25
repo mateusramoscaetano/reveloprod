@@ -68,11 +68,7 @@ export function Fotos() {
 
   return (
     <section ref={ref} className="relative bg-brand-dark overflow-hidden py-20 md:py-32">
-      <MarcaPattern
-        className="absolute inset-0 z-0 mix-blend-soft-light"
-        opacity={0.1}
-        backgroundPosition="right top"
-      />
+
 
       {/* Asset-1: decorativo canto superior-direito */}
       <div

@@ -40,18 +40,18 @@ export function SobreNos() {
           </p>
           <div className="overflow-hidden pb-[0.12em]">
             <h2
-              className="sobre-headline font-serif text-brand-cream leading-[0.95]"
-              style={{ fontSize: "clamp(40px,6.5vw,96px)" }}
+              className="sobre-headline font-serif text-brand-cream leading-[0.95] max-w-[50%]"
+              style={{ fontSize: "clamp(20px,6.5vw,56px)" }}
             >
-              Estamos aqui
+              Reconhecemos as transições e
             </h2>
           </div>
           <div className="overflow-hidden pb-[0.12em]">
             <h2
-              className="sobre-headline font-serif italic text-brand-pink leading-[0.95]"
-              style={{ fontSize: "clamp(40px,6.5vw,96px)" }}
+              className="sobre-headline font-serif italic text-brand-pink leading-[0.95] max-w-[60%]"
+              style={{ fontSize: "clamp(20px,6.5vw,56px)" }}
             >
-              para criar.
+              documentamos cada uma delas
             </h2>
           </div>
         </div>
@@ -60,21 +60,20 @@ export function SobreNos() {
         <div className="sobre-body grid min-h-0 flex-1 grid-cols-1 gap-8 md:grid-cols-2 md:gap-12 lg:gap-16 content-start">
           <div className="flex min-h-0 flex-col gap-4 md:gap-5">
             <p className="font-sans text-[16px] font-medium leading-snug text-brand-cream md:text-[18px]">
-              Revelamos aquilo que se é incapaz de enxergar, mas de certo modo
-              já se sabe. Pode ser uma visão de mundo singularmente diferente
-              ou tão próxima que parece milagrosa.
+              A Revelô nasceu da paixão por registrar aquilo que não volta: os encontros, as conquistas, a emoção e a energia dos momentos que marcam uma vida inteira.
             </p>
             <p className="font-sans text-[14px] leading-relaxed text-brand-cream/55 md:text-[15px]">
-              Como se olhássemos pelos seus olhos e isso te fizesse lembrar
-              quem você é e o que pode ser. Nosso ponto de vista não precisa ser
-              coerente — e raramente é simples.
+              Ao longo da nossa jornada desenvolvemos um olhar especializado para capturar experiências intensas, humanas e inesquecíveis. Mas nossa essência vai além: estamos presentes em eventos, celebrações e projetos que carregam histórias reais.
+            </p>
+            <p className="font-sans text-[14px] leading-relaxed text-brand-cream/55 md:text-[15px]">
+              Mais do que produzir fotos e vídeos, acreditamos em criar memórias vivas, daquelas que fazem você sentir tudo de novo cada vez que olha. Tudo isso feito por quem escolheu registrar os momentos como a sua missão, unindo arte, paixão e tecnologia pra não deixar nenhuma lembrança sem virar eterna.
             </p>
             <p className="mt-auto pt-4 font-mono text-[10px] uppercase tracking-widest text-brand-cream/30">
               Part of Atmosfera · Curitiba, BR
             </p>
           </div>
 
-          <div className="flex min-h-0 flex-col divide-y divide-brand-cream/10">
+          <div className="flex min-h-0 flex-col divide-y divide-brand-cream/10 mt-[-100px]">
             {[
               { num: "+300", label: "Projetos realizados" },
               { num: "12", label: "Cidades atendidas" },
