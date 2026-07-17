@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { B612_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/providers/SmoothScrollProvider";
 
@@ -152,6 +153,18 @@ export default function RootLayout({
     >
       <body className="bg-brand-dark text-brand-cream antialiased">
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-6Y9SCKKZRB"
+          strategy="afterInteractive"
+        />
+        <Script id="tag-revelo" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-6Y9SCKKZRB');
+          `}
+        </Script>
       </body>
     </html>
   );
