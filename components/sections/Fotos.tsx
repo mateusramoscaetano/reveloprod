@@ -3,17 +3,45 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 import { PhotoCard } from "@/components/ui/PhotoCard";
-import { MarcaPattern } from "@/components/marca/MarcaPattern";
 import { MarcaAsset } from "@/components/marca/MarcaAsset";
 
-const photos: Array<{ title: string; category: string }> = [
-  { title: "Ensaio Antecipado", category: "Formatura" },
-  { title: "Família Lima", category: "Family" },
-  { title: "Família Menezes", category: "Family" },
-  { title: "Evento Cultural", category: "Evento" },
-  { title: "Colação de Grau", category: "Formatura" },
-  { title: "Sessão Outono", category: "Family" },
-];
+const photos = [
+  {
+    title: "BYD",
+    category: "Marca",
+    src: "/images/photos/IMG_5197.JPG",
+  },
+  {
+    title: "Réveillon Arcanjos",
+    category: "Evento",
+    src: "/images/photos/IMG_5530.JPG",
+  },
+  {
+    title: "Folianópolis",
+    category: "Evento",
+    src: "/images/photos/IMG_3293.JPG",
+  },
+  {
+    title: "Pré-eventos",
+    category: "Formatura",
+    src: "/images/photos/VAZ_6500.jpg",
+  },
+  {
+    title: "Baile de Formatura",
+    category: "Formatura",
+    src: "/images/photos/IMG_4565.JPG",
+  },
+  {
+    title: "Colação de Grau",
+    category: "Formatura",
+    src: "/images/photos/VAZ_2852.JPG",
+  },
+  {
+    title: "Atlética Direito PUCPR",
+    category: "Formatura",
+    src: "/images/photos/atleticamedpucpr2026_-1499.jpg",
+  },
+] as const;
 
 export function Fotos() {
   const ref = useRef<HTMLElement>(null);
@@ -43,6 +71,18 @@ export function Fotos() {
         });
       });
 
+      gsap.from(".foto-logo", {
+        y: 52,
+        opacity: 0,
+        scale: 0.96,
+        duration: 0.85,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".foto-logo",
+          start: "top 90%",
+        },
+      });
+
       gsap.from(asset1Ref.current, {
         x: 40,
         opacity: 0,
@@ -68,9 +108,6 @@ export function Fotos() {
 
   return (
     <section ref={ref} className="relative bg-brand-dark overflow-hidden py-20 md:py-32">
-
-
-      {/* Asset-1: decorativo canto superior-direito */}
       <div
         ref={asset1Ref}
         className="pointer-events-none absolute top-[-5%] right-[-4%] z-[1] w-[180px] md:w-[250px] hidden md:block"
@@ -79,13 +116,8 @@ export function Fotos() {
       </div>
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14">
-
-        {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-14">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-cream/40 mb-5">
-              — Galeria
-            </p>
             <div className="foto-title overflow-hidden">
               <span
                 className="block font-sans font-black uppercase text-brand-cream leading-[0.86]"
@@ -104,13 +136,22 @@ export function Fotos() {
           </Link>
         </div>
 
-        {/* Grid alinhado — mesma altura por linha */}
-        <div className="grid grid-cols-2 auto-rows-[220px] gap-3 md:grid-cols-3 md:auto-rows-[260px] md:gap-4">
-          {photos.map((p, i) => (
-            <div key={i} className="foto-card min-h-0">
-              <PhotoCard {...p} />
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:gap-4">
+          {photos.map((p) => (
+            <div key={p.src} className="foto-card">
+              <PhotoCard {...p} alt={p.title} />
             </div>
           ))}
+
+          <div className="foto-logo sm:col-span-1 md:col-span-2 flex h-full max-h-[574px] min-h-0 w-full items-center justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/marca/asset-1.svg"
+              alt=""
+              aria-hidden
+              className="h-full w-full max-h-[574px] scale-50 "
+            />
+          </div>
         </div>
       </div>
     </section>

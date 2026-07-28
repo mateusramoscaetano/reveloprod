@@ -7,14 +7,14 @@ import { Footer } from "@/components/sections/Footer";
 import { MarcaPattern } from "@/components/marca/MarcaPattern";
 
 const allVideos = [
-  { title: "Turma de Medicina 2024", category: "Formatura", year: "2024" },
-  { title: "Família Rodrigues", category: "Family", year: "2024" },
-  { title: "Congresso Nacional de Design", category: "Evento", year: "2023" },
-  { title: "Turma de Direito 2023", category: "Formatura", year: "2023" },
-  { title: "Família Almeida", category: "Family", year: "2023" },
-  { title: "Lançamento Corporativo", category: "Evento", year: "2023" },
-  { title: "Turma de Engenharia 2022", category: "Formatura", year: "2022" },
-  { title: "Família Cardoso", category: "Family", year: "2022" },
+  { title: "Medicina UP 18", category: "Estúdio", year: "2024" },
+  { title: "Fashion Film", category: "Marca", year: "2024" },
+  { title: "Réveillon Arcanjos", category: "Evento", year: "2024" },
+  { title: "Turma de Direito PUCPR", category: "Formatura", year: "2023" },
+  { title: "Folianópolis", category: "Evento", year: "2023" },
+  { title: "Family Day", category: "Family", year: "2023" },
+  { title: "Baile de Formatura", category: "Formatura", year: "2022" },
+  { title: "Evento Corporativo", category: "Corporativo", year: "2022" },
 ];
 
 export default function VideosPage() {
@@ -46,12 +46,12 @@ export default function VideosPage() {
     <div ref={ref}>
       <Navbar />
 
-      {/* Page hero */}
       <section className="bg-brand-red pt-36 pb-20 relative overflow-hidden">
         <MarcaPattern
           className="absolute inset-0 z-0 mix-blend-overlay"
-          opacity={0.18}
-          backgroundPosition="20% 50%"
+          opacity={0.14}
+          backgroundSize="100% auto"
+          backgroundPosition="center top"
         />
         <div
           className="pointer-events-none absolute inset-0 z-[1] opacity-[0.04]"
@@ -62,9 +62,6 @@ export default function VideosPage() {
           }}
         />
         <div className="max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24 vpage-hero relative z-10">
-          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-brand-cream/60 mb-6">
-            — Galeria completa
-          </p>
           <h1
             className="font-sans font-black uppercase text-brand-cream leading-none"
             style={{ fontSize: "clamp(56px,9vw,140px)" }}
@@ -74,7 +71,6 @@ export default function VideosPage() {
         </div>
       </section>
 
-      {/* Grid */}
       <section className="bg-brand-cream py-24">
         <div className="max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

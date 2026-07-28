@@ -7,16 +7,16 @@ const tickerItems = [
   { label: "FORMATURAS", accent: false },
   { label: "FAMILY", accent: true },
   { label: "EVENTOS", accent: false },
-  { label: "FORMATURAS", accent: true },
-  { label: "FAMILY", accent: false },
-  { label: "EVENTOS", accent: true },
+  { label: "ESTÚDIOS", accent: true },
+  { label: "MARCAS", accent: false },
+  { label: "CORPORATIVOS", accent: true },
 ];
 
 const cards = [
   {
     num: "01",
     title: "FORMATURAS",
-    desc: "Da ansiedade dos primeiros momentos até a celebração final: registramos cada detalhe da experiência universitária do jeito que ela merece ser lembrada. ",
+    desc: "Da ansiedade dos primeiros momentos até a celebração final: registramos cada detalhe da experiência universitária do jeito que ela merece ser lembrada.",
   },
   {
     num: "02",
@@ -27,6 +27,21 @@ const cards = [
     num: "03",
     title: "EVENTOS",
     desc: "Registros para eventos, experiências e celebrações que merecem continuar sendo vividas mesmo depois que acabam.",
+  },
+  {
+    num: "04",
+    title: "ESTÚDIOS",
+    desc: "Produções em estúdio para campanhas, ensaios editoriais e conteúdo de marca com direção criativa de ponta a ponta.",
+  },
+  {
+    num: "05",
+    title: "MARCAS",
+    desc: "Imagens e vídeos que traduzem a identidade da marca com olhar editorial, do conceito à entrega final.",
+  },
+  {
+    num: "06",
+    title: "CORPORATIVOS",
+    desc: "Cobertura de eventos corporativos, lançamentos e experiências institucionais com a mesma curadoria dos nossos projetos criativos.",
   },
 ];
 
@@ -40,7 +55,7 @@ export function Servicos() {
     const ctx = gsap.context(() => {
       tweenRef.current = gsap.to(trackRef.current, {
         xPercent: -50,
-        duration: 20,
+        duration: 28,
         ease: "none",
         repeat: -1,
       });
@@ -93,15 +108,14 @@ export function Servicos() {
     };
   }, []);
 
-  const allItems = [...tickerItems, ...tickerItems];
+  const allItems = [...tickerItems, ...tickerItems, ...tickerItems, ...tickerItems];
 
   return (
     <section
       id="servicos"
       ref={ref}
-      className="relative bg-brand-dark overflow-hidden pt-16 md:pt-20 pb-20 md:pb-40"
+      className="relative bg-brand-dark overflow-hidden pt-16 md:pt-20 pb-20 md:pb-40 "
     >
-      {/* Asset-1: decorativo canto direito */}
       <div
         ref={asset1Ref}
         className="pointer-events-none absolute top-[5%] right-[-3%] z-[1] w-[160px] md:w-[210px] hidden md:block"
@@ -109,24 +123,19 @@ export function Servicos() {
         <MarcaAsset asset={1} opacity={0.08} className="w-full mix-blend-soft-light" />
       </div>
 
-      {/* Header */}
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14 mb-12">
-        <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-cream/40 mb-6">
-          — O que fazemos
-        </p>
         <div className="serv-header overflow-hidden pb-[0.22em]">
           <div className="overflow-hidden pb-[0.18em]">
             <span
               className="block font-sans font-black uppercase text-brand-cream leading-[0.92]"
               style={{ fontSize: "clamp(64px,10vw,152px)" }}
             >
-              SERVIÇOS
+              O QUE FAZEMOS
             </span>
           </div>
         </div>
       </div>
 
-      {/* Marquee ticker */}
       <div className="overflow-hidden border-y border-brand-cream/10 py-4 mb-16">
         <div ref={trackRef} className="flex whitespace-nowrap">
           {allItems.map((item, i) => (
@@ -135,10 +144,11 @@ export function Servicos() {
               className="flex items-center shrink-0 px-10 group cursor-default"
             >
               <span
-                className={`font-sans font-black uppercase leading-none select-none transition-colors duration-200 ${item.accent
-                  ? "text-brand-pink group-hover:text-brand-cream"
-                  : "text-brand-cream/50 group-hover:text-brand-pink"
-                  }`}
+                className={`font-sans font-black uppercase leading-none select-none transition-colors duration-200 ${
+                  item.accent
+                    ? "text-brand-pink group-hover:text-brand-cream"
+                    : "text-brand-cream/50 group-hover:text-brand-pink"
+                }`}
                 style={{ fontSize: "clamp(40px,5.5vw,80px)" }}
               >
                 {item.label}
@@ -149,13 +159,12 @@ export function Servicos() {
         </div>
       </div>
 
-      {/* Cards de detalhe */}
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14">
-        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-brand-cream/10">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-brand-cream/10">
           {cards.map((c) => (
             <div
               key={c.num}
-              className="serv-card group px-0 md:px-10 py-10 md:py-0 first:md:pl-0 last:md:pr-0 hover:bg-brand-dark-800 md:hover:bg-transparent transition-colors duration-200"
+              className="serv-card group px-0 md:px-8 py-10 md:py-8 lg:px-10 hover:bg-brand-dark-800 md:hover:bg-transparent transition-colors duration-200"
             >
               <p className="font-mono text-[10px] text-brand-cream/25 uppercase tracking-widest mb-5">
                 {c.num}

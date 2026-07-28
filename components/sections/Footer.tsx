@@ -2,11 +2,9 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
-import { MarcaAsset } from "@/components/marca/MarcaAsset";
 
 export function Footer() {
   const ref = useRef<HTMLElement>(null);
-  const asset3Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -25,35 +23,8 @@ export function Footer() {
         ease: "power3.out",
         scrollTrigger: { trigger: ".foot-col", start: "top 85%" },
       });
-      gsap.fromTo(
-        ".foot-svg-stroke",
-        { strokeDashoffset: 800 },
-        {
-          strokeDashoffset: 0,
-          duration: 2,
-          ease: "power2.inOut",
-          scrollTrigger: { trigger: ref.current, start: "top 80%" },
-        }
-      );
-
-      gsap.from(asset3Ref.current, {
-        opacity: 0,
-        scale: 0.88,
-        duration: 1.5,
-        ease: "power3.out",
-        scrollTrigger: { trigger: ref.current, start: "top 85%" },
-      });
-
-      gsap.to(asset3Ref.current, {
-        rotation: 360,
-        duration: 140,
-        ease: "none",
-        repeat: -1,
-        transformOrigin: "center center",
-      });
     }, ref);
 
-    // Hover nos círculos sociais
     const socials = ref.current?.querySelectorAll<HTMLElement>(".foot-social-icon") ?? [];
     const handlers: Array<{ el: HTMLElement; onEnter: () => void; onLeave: () => void }> = [];
 
@@ -84,36 +55,7 @@ export function Footer() {
       ref={ref}
       className="relative bg-brand-dark border-t border-brand-cream/10 overflow-hidden"
     >
-      {/* Asset-3: decorativo canto inferior direito */}
-      <div
-        ref={asset3Ref}
-        className="pointer-events-none absolute bottom-[-15%] right-[-8%] z-[1] w-[240px] md:w-[340px] hidden md:block"
-      >
-        <MarcaAsset asset={3} opacity={0.06} className="w-full mix-blend-soft-light" />
-      </div>
-
-      {/* SVG decorativo */}
-      <div className="pointer-events-none absolute top-10 right-10 hidden lg:block">
-        <svg width="220" height="150" viewBox="0 0 220 150" fill="none">
-          <path
-            className="foot-svg-stroke"
-            d="M15 90 C50 15, 95 130, 140 55 C165 10, 200 75, 208 75"
-            stroke="#F2AABB"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeDasharray="800"
-            strokeDashoffset="800"
-            fill="none"
-            opacity="0.35"
-          />
-        </svg>
-      </div>
-
-      {/* CTA grande */}
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14 pt-20 pb-14 border-b border-brand-cream/10">
-        <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-cream/35 mb-8">
-          — Vamos conversar
-        </p>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div className="foot-cta">
             <div className="overflow-hidden">
@@ -121,7 +63,7 @@ export function Footer() {
                 className="block font-sans font-black uppercase text-brand-cream leading-[0.86]"
                 style={{ fontSize: "clamp(48px,7.5vw,116px)" }}
               >
-                TEM UM
+                SEU PROJETO
               </span>
             </div>
             <div className="overflow-hidden">
@@ -129,7 +71,7 @@ export function Footer() {
                 className="block font-serif italic text-brand-pink leading-[0.92]"
                 style={{ fontSize: "clamp(48px,7.5vw,116px)" }}
               >
-                projeto em
+                precisa de
               </span>
             </div>
             <div className="overflow-hidden">
@@ -137,7 +79,7 @@ export function Footer() {
                 className="block font-sans font-black uppercase text-brand-cream leading-[0.86]"
                 style={{ fontSize: "clamp(48px,7.5vw,116px)" }}
               >
-                MENTE?
+                PERSONALIDADE?
               </span>
             </div>
           </div>
@@ -151,24 +93,20 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Três colunas */}
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
-
-          {/* Col 1 */}
           <div className="foot-col flex flex-col gap-5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.svg" alt="Revelô" className="h-[20px] w-auto" />
             <p className="font-sans text-[14px] text-brand-cream/55 leading-relaxed max-w-xs">
-              Momentos revelados com alma — fotografia e vídeo para formaturas,
-              famílias e eventos.
+              Momentos revelados com alma. Fotografia e vídeo para formaturas,
+              famílias, eventos, estúdios, marcas e corporativos.
             </p>
             <p className="font-mono text-[10px] uppercase tracking-widest text-brand-cream/25">
               Part of Atmosfera · Desde 2019
             </p>
           </div>
 
-          {/* Col 2 */}
           <div className="foot-col flex flex-col gap-5">
             <p className="font-mono text-[10px] uppercase tracking-widest text-brand-cream/35">
               Contato
@@ -189,8 +127,9 @@ export function Footer() {
             </div>
             <div className="flex flex-col gap-2 pt-3 border-t border-brand-cream/10">
               {[
-                { label: "Sobre", href: "#sobre" },
-                { label: "Serviços", href: "#servicos" },
+                { label: "A Revelô", href: "#sobre" },
+                { label: "O que fazemos", href: "#servicos" },
+                { label: "Equipe", href: "#equipe" },
                 { label: "Vídeos", href: "/videos" },
                 { label: "Fotos", href: "/fotos" },
               ].map((link) => (
@@ -205,7 +144,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Col 3 */}
           <div className="foot-col flex flex-col gap-5">
             <p className="font-mono text-[10px] uppercase tracking-widest text-brand-cream/35">
               Redes sociais
@@ -237,7 +175,6 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Barra final */}
       <div className="border-t border-brand-cream/10">
         <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14 py-5 flex flex-col md:flex-row justify-between items-center gap-2">
           <p className="font-mono text-[10px] text-brand-cream/25 uppercase tracking-widest">

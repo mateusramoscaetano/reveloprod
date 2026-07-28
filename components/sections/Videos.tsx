@@ -3,14 +3,13 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 import { VideoCard } from "@/components/ui/VideoCard";
-import { MarcaPattern } from "@/components/marca/MarcaPattern";
 import { MarcaAsset } from "@/components/marca/MarcaAsset";
 
 const videos = [
-  { title: "Turma de Medicina 2024", category: "Formatura", year: "2024" },
-  { title: "Família Rodrigues", category: "Family", year: "2024" },
-  { title: "Congresso Nacional de Design", category: "Evento", year: "2023" },
-  { title: "Turma de Direito 2023", category: "Formatura", year: "2023" },
+  { title: "Medicina UP 18", category: "Estúdio", year: "2024" },
+  { title: "Fashion Film", category: "Marca", year: "2024" },
+  { title: "Réveillon Arcanjos", category: "Evento", year: "2024" },
+  { title: "Turma de Direito PUCPR", category: "Formatura", year: "2023" },
 ];
 
 export function Videos() {
@@ -69,9 +68,6 @@ export function Videos() {
 
   return (
     <section ref={ref} className="relative bg-brand-cream overflow-hidden py-20 md:py-32">
-
-
-      {/* Asset-2: decorativo lado esquerdo */}
       <div
         ref={asset2Ref}
         className="pointer-events-none absolute left-[-4%] top-[8%] z-[1] w-[200px] md:w-[280px] hidden md:block"
@@ -80,13 +76,8 @@ export function Videos() {
       </div>
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14">
-
-        {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-14">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-dark/40 mb-5">
-              — Nossos vídeos
-            </p>
             <div className="vid-title overflow-hidden pb-[0.22em]">
               <span
                 className="block font-sans font-black uppercase text-brand-dark leading-[0.92]"
@@ -105,7 +96,6 @@ export function Videos() {
           </Link>
         </div>
 
-        {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {videos.map((v, i) => (
             <div key={i} className="vid-card">

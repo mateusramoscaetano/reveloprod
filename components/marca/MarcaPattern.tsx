@@ -7,6 +7,7 @@ type MarcaPatternProps = {
   opacity?: number;
   backgroundSize?: CSSProperties["backgroundSize"];
   backgroundPosition?: CSSProperties["backgroundPosition"];
+  repeat?: boolean | "x" | "y";
 };
 
 export function MarcaPattern({
@@ -15,11 +16,21 @@ export function MarcaPattern({
   opacity = 0.12,
   backgroundSize = "cover",
   backgroundPosition = "center",
+  repeat = false,
 }: MarcaPatternProps) {
+  const repeatClass =
+    repeat === true
+      ? "bg-repeat"
+      : repeat === "x"
+        ? "bg-repeat-x"
+        : repeat === "y"
+          ? "bg-repeat-y"
+          : "bg-no-repeat";
+
   return (
     <div
       aria-hidden
-      className={`pointer-events-none select-none bg-no-repeat ${className}`}
+      className={`pointer-events-none select-none ${repeatClass} ${className}`}
       style={{
         opacity,
         backgroundImage: `url("${src}")`,

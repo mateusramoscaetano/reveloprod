@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { B612_Mono } from "next/font/google";
+import { B612_Mono, Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/providers/SmoothScrollProvider";
@@ -129,6 +129,14 @@ const kathyStyle = localFont({
   display: "swap",
 });
 
+/* ── Inter — fallback com latin-ext (acentos PT) para glifos ausentes nas trials NHG ── */
+const inter = Inter({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "700", "900"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
 /* ── B612 Mono — labels e tags ── */
 const b612 = B612_Mono({
   subsets: ["latin"],
@@ -137,8 +145,13 @@ const b612 = B612_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Revelô — Fotografia & Vídeo",
-  description: "Formaturas, famílias e eventos — momentos revelados com alma.",
+  title: "Revelô | Fotografia & Vídeo",
+  description:
+    "Formaturas, famílias, eventos, estúdios, marcas e corporativos. Momentos revelados com alma.",
+  icons: {
+    icon: "/marca/asset-1.svg",
+    apple: "/marca/asset-1.svg",
+  },
 };
 
 export default function RootLayout({
@@ -149,7 +162,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${neueHaas.variable} ${neueHaasText.variable} ${kathyStyle.variable} ${b612.variable}`}
+      className={`${neueHaas.variable} ${neueHaasText.variable} ${kathyStyle.variable} ${inter.variable} ${b612.variable}`}
     >
       <body className="bg-brand-dark text-brand-cream antialiased">
         <SmoothScrollProvider>{children}</SmoothScrollProvider>

@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
-import { MarcaPattern } from "@/components/marca/MarcaPattern";
 import { MarcaAsset } from "@/components/marca/MarcaAsset";
 
 export function Hero() {
@@ -182,7 +181,7 @@ export function Hero() {
             </div>
 
             <div className="overflow-hidden">
-              <h1 className="hero-line font-serif italic text-brand-cream leading-[inherit] text-[1em] pb-[0.06em]">
+              <h1 className="hero-line font-serif italic text-brand-cream leading-[inherit] text-[1.5em] pb-[0.06em]">
                 aquilo
               </h1>
             </div>
@@ -195,7 +194,7 @@ export function Hero() {
 
             <div className="overflow-hidden">
               <div className="flex flex-wrap items-baseline gap-x-[0.28em] gap-y-1">
-                <h1 className="hero-line font-serif italic text-brand-cream leading-[inherit] text-[1em] shrink-0 pb-[0.06em]">
+                <h1 className="hero-line font-serif italic text-brand-cream leading-[inherit] text-[1.5em] shrink-0 pb-[0.06em]">
                   incapaz
                 </h1>
                 <h1 className="hero-line font-sans-tight font-black uppercase tracking-tight text-brand-dark leading-[inherit] text-[1em] min-w-0">
@@ -211,7 +210,7 @@ export function Hero() {
 
       <div className="relative z-20 hero-bottom border-t border-brand-cream/10 px-6 md:px-10 py-4 flex justify-between items-center">
         <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-brand-cream/40">
-          Formaturas · Family · Eventos
+          Formaturas · Family · Eventos · Estúdios · Marcas · Corporativos
         </span>
         <a
           ref={ctaRef}

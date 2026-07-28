@@ -4,8 +4,6 @@ import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { SobreNos } from "./SobreNos";
 import { Servicos } from "./Servicos";
 
-// Column x-boundaries (left edge of each column), right-to-left reveal order
-// Widths: col4=35%, col3=20%, col2=23%, col1=22%
 const COL = { x1: 0, x2: 22, x3: 45, x4: 65 };
 
 export function StickyReveal() {
@@ -13,9 +11,6 @@ export function StickyReveal() {
   const servicosRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // ty: translateY do elemento (100 = completamente abaixo do viewport, 0 = no lugar)
-    // s1..s4: borda superior de cada coluna no clip-path (% da altura do elemento)
-    // Coluna visível quando: ty + si < 100 (elemento sobe o suficiente pra coluna cruzar o fundo da tela)
     const state = { ty: 100, s1: 100, s2: 100, s3: 100, s4: 100 };
 
     const updateClip = () => {
@@ -33,55 +28,85 @@ export function StickyReveal() {
       ].join(" ");
     };
 
+    const clearRevealStyles = () => {
+      if (!servicosRef.current) return;
+      servicosRef.current.style.transform = "";
+      servicosRef.current.style.clipPath = "";
+      servicosRef.current.style.willChange = "";
+    };
+
     updateClip();
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ onUpdate: updateClip });
+      const mm = gsap.matchMedia();
 
-      tl.to(state, { ty: 50, duration: 2.5, ease: "power1.inOut" }, 0)
-        .to(state, { s4: 0, duration: 1.5, ease: "power3.out" }, 0)
-        .to(state, { s2: 0, duration: 1.4, ease: "power2.out" }, 0.4)
-        .to(state, { s3: 0, duration: 1.3, ease: "power3.out" }, 0.85)
-        .to(state, { s1: 0, duration: 1.2, ease: "power2.out" }, 1.3)
-        .to(state, { ty: 0, duration: 1.5, ease: "power2.inOut" }, 2.8)
-        .from(".serv-card", {
-          y: 40,
-          opacity: 0,
-          duration: 0.6,
-          stagger: 0.08,
-          ease: "power3.out",
-        }, 4.1);
+      mm.add(
+        {
+          isDesktop: "(min-width: 768px)",
+          isMobile: "(max-width: 767px)",
+        },
+        (context) => {
+          const { isMobile } = context.conditions as { isMobile: boolean };
 
-      ScrollTrigger.create({
-        trigger: wrapperRef.current,
-        start: "top top",
-        end: "+=320%",
-        pin: true,
-        anticipatePin: 1,
-        scrub: 1.5,
-        animation: tl,
-      });
+          const tl = gsap.timeline({
+            onUpdate: updateClip,
+            onComplete: clearRevealStyles,
+          });
+
+          tl.to(state, { ty: 35, duration: 1.1, ease: "power2.out" }, 0)
+            .to(state, { s4: 0, duration: 0.95, ease: "power3.out" }, 0)
+            .to(state, { s2: 0, duration: 0.85, ease: "power2.out" }, 0.15)
+            .to(state, { s3: 0, duration: 0.8, ease: "power3.out" }, 0.35)
+            .to(state, { s1: 0, duration: 0.75, ease: "power2.out" }, 0.55)
+            .to(state, { ty: 0, duration: 0.95, ease: "power2.inOut" }, 0.6)
+            .from(
+              ".serv-card",
+              {
+                y: 32,
+                opacity: 0,
+                duration: 0.45,
+                stagger: 0.05,
+                ease: "power3.out",
+              },
+              1.35
+            );
+
+          ScrollTrigger.create({
+            trigger: wrapperRef.current,
+            start: "top top",
+            end: isMobile ? "+=115%" : "+=165%",
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            scrub: isMobile ? 0.55 : 0.85,
+            animation: tl,
+            invalidateOnRefresh: true,
+            onLeave: clearRevealStyles,
+          });
+        }
+      );
     }, wrapperRef);
+
+    const onResize = () => ScrollTrigger.refresh();
+    window.addEventListener("resize", onResize);
 
     ScrollTrigger.refresh();
 
     return () => {
+      window.removeEventListener("resize", onResize);
       ctx.revert();
-      if (servicosRef.current) {
-        servicosRef.current.style.clipPath = "";
-        servicosRef.current.style.transform = "";
-      }
+      clearRevealStyles();
     };
   }, []);
 
   return (
-    <div ref={wrapperRef} data-sticky-reveal className="relative min-h-screen overflow-hidden">
-      {/* SobreNos: camada de fundo pinada */}
-      <div className="absolute inset-0 z-0 min-h-screen">
+    <div ref={wrapperRef} data-sticky-reveal className="relative">
+      {/* Sobre: fixo no topo da seção enquanto Serviços rola por cima */}
+      <div className="pointer-events-none absolute top-0 left-0 right-0 z-0 h-screen overflow-hidden">
         <SobreNos />
       </div>
 
-      {/* Servicos: revelado pelo clip-path de escada */}
+      {/* Serviços: altura natural — permite rolar todos os cards após o reveal */}
       <div
         ref={servicosRef}
         className="relative z-10 min-h-screen"

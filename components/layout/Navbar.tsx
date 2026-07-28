@@ -41,14 +41,15 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="nav-el">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="Revelô" className="h-[17px] md:h-[20px]" />
+          <img src="/logo.svg" alt="Revelô" className="h-[26px] md:h-[32px]" />
         </Link>
 
         {/* Links centrais */}
         <ul className="hidden md:flex items-center gap-8">
           {[
-            { label: "Sobre", href: "#sobre" },
-            { label: "Serviços", href: "#servicos" },
+            { label: "A Revelô", href: "#sobre" },
+            { label: "O que fazemos", href: "#servicos" },
+            { label: "Equipe", href: "#equipe" },
             { label: "Vídeos", href: "/videos" },
             { label: "Fotos", href: "/fotos" },
           ].map((item) => (

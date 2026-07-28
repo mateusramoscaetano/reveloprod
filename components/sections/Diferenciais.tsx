@@ -5,24 +5,24 @@ import { MarcaAsset } from "@/components/marca/MarcaAsset";
 
 const items = [
   {
-    title: "Olhar editorial",
-    desc: "Um olhar que une estética editorial e emoção, transformando momentos espontâneos em imagens marcantes, além do registro.",
+    title: "Repertório como método, não estilo.",
+    desc: "Moda, cinema e música guiam a decisão de imagem desde o estúdio até o clique, não são adicionados depois.",
   },
   {
-    title: "Entrega no prazo",
-    desc: "Compromisso com prazos claros e uma entrega organizada do início ao fim, porque a gente sabe a ansiedade de reviver tudo.",
+    title: "Curadoria é sua, não nossa.",
+    desc: "Antes da entrega final, você ajusta o que não gostou. Ninguém recebe pronto sem opinar.",
   },
   {
-    title: "Identidade própria",
-    desc: "Cada imagem carrega a assinatura visual da Revelô: moderna, intensa e atemporal.",
+    title: "Tecnologia agiliza, olho humano decide.",
+    desc: "Usamos tratamento de imagem pra agilizar a entrega, mas cada foto passa por revisão humana antes de sair, evitando os erros clássicos de edição automática.",
   },
   {
-    title: "Atendimento próximo",
-    desc: "Presença, atenção aos detalhes e suporte antes, durante e depois de cada experiência.",
+    title: "Criamos tendência, não seguimos.",
+    desc: "O Family Day nasceu aqui e hoje é replicado pelo mercado inteiro de formatura.",
   },
   {
-    title: "Alta resolução",
-    desc: "Arquivos em alta qualidade, preparados para impressão, compartilhamento e para atravessar o tempo.",
+    title: "Mesma direção em qualquer escala.",
+    desc: "A curadoria que fotografou Camarote Brahma, Arcanjos, Cléo Pires e Mariana Ruy Barbosa é a mesma que está na sua formatura.",
   },
 ];
 
@@ -76,7 +76,6 @@ export function Diferenciais() {
       });
     }, ref);
 
-    // Hover interativo nas linhas de diferenciais
     const rows = ref.current?.querySelectorAll<HTMLElement>(".dif-row") ?? [];
     const handlers: Array<{ el: HTMLElement; onEnter: () => void; onLeave: () => void }> = [];
 
@@ -116,7 +115,6 @@ export function Diferenciais() {
       ref={ref}
       className="relative bg-brand-red overflow-hidden pt-10 pb-16 md:pt-14 md:pb-24"
     >
-      {/* Grain */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.03]"
         style={{
@@ -126,7 +124,6 @@ export function Diferenciais() {
         }}
       />
 
-      {/* Asset-3: canto esquerdo com rotação lenta */}
       <div
         ref={asset3Ref}
         className="pointer-events-none absolute top-[-15%] left-[-10%] z-[1] w-[260px] md:w-[380px] hidden md:block"
@@ -135,12 +132,7 @@ export function Diferenciais() {
       </div>
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14">
-
-        {/* Título */}
         <div className="mb-10 md:mb-12">
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-cream/50 mb-4 md:mb-5">
-            — Por que a Revelô
-          </p>
           <div className="dif-title">
             <div className="overflow-hidden">
               <span
@@ -161,7 +153,6 @@ export function Diferenciais() {
           </div>
         </div>
 
-        {/* Lista */}
         <div className="flex flex-col">
           {items.map((item, i) => (
             <div
@@ -171,7 +162,7 @@ export function Diferenciais() {
               <span className="dif-check font-mono text-brand-pink text-[14px] flex-shrink-0 mt-1 w-5 inline-block">✓</span>
               <div className="flex flex-col md:flex-row gap-2 md:gap-16 flex-1 md:items-baseline">
                 <h3
-                  className="font-sans font-black uppercase text-brand-cream flex-shrink-0 md:w-72 group-hover:text-brand-pink transition-colors duration-300 leading-tight"
+                  className="font-sans font-black uppercase text-brand-cream flex-shrink-0 md:w-80 group-hover:text-brand-pink transition-colors duration-300 leading-tight"
                   style={{ fontSize: "clamp(18px,2vw,26px)" }}
                 >
                   {item.title}
@@ -182,23 +173,6 @@ export function Diferenciais() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* CTA */}
-        <div className="mt-16 md:mt-20 flex flex-col md:flex-row items-start md:items-end justify-between gap-8">
-          <p
-            className="font-serif italic text-brand-cream leading-[1.1] max-w-2xl"
-            style={{ fontSize: "clamp(28px,3.8vw,56px)" }}
-          >
-            Seu próximo grande momento merece ser revelado.
-          </p>
-          <a
-            href="#contato"
-            className="group flex-shrink-0 self-start md:self-end bg-brand-cream text-brand-dark px-10 py-5 font-sans font-black uppercase text-[14px] tracking-wider hover:bg-brand-pink hover:text-brand-dark transition-colors duration-300 whitespace-nowrap inline-flex items-center gap-3"
-          >
-            Fale conosco
-            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
-          </a>
         </div>
       </div>
     </section>

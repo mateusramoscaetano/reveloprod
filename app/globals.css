@@ -8,11 +8,12 @@
   --color-brand-dark: #0d0d0d;
   --color-brand-dark-800: #1a1a1a;
 
-  /* Font families — vars injetadas via next/font/local em layout.tsx */
-  --font-sans: var(--font-nhg), "Helvetica Neue", Arial, sans-serif;
-  --font-sans-tight: var(--font-nhg-text), "Helvetica Neue", Arial, sans-serif;
-  --font-serif: var(--font-kathy), Georgia, serif;
-  --font-mono: var(--font-b612), monospace;
+  /* Font families — vars injetadas via next/font em layout.tsx */
+  /* Inter entra como fallback por caractere: trials NHG não incluem acentos (é, ó, ã…) */
+  --font-sans: var(--font-nhg), var(--font-inter), "Helvetica Neue", Arial, sans-serif;
+  --font-sans-tight: var(--font-nhg-text), var(--font-inter), "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-kathy), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-b612), var(--font-inter), monospace;
 
   /* Display font sizes */
   --text-display-xl: 160px;
