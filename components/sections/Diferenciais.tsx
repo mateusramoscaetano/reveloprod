@@ -14,7 +14,7 @@ const items = [
   },
   {
     title: "Tecnologia agiliza, olho humano decide.",
-    desc: "Usamos tratamento de imagem pra agilizar a entrega, mas cada foto passa por revisão humana antes de sair, evitando os erros clássicos de edição automática.",
+    desc: "Utilizamos tecnologia para acelerar o tratamento das imagens, mas cada foto passa por uma revisão humana antes da entrega.",
   },
   {
     title: "Criamos tendência, não seguimos.",

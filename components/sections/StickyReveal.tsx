@@ -100,7 +100,7 @@ export function StickyReveal() {
   }, []);
 
   return (
-    <div ref={wrapperRef} data-sticky-reveal className="relative">
+    <div ref={wrapperRef} id="sobre" data-sticky-reveal className="relative">
       {/* Sobre: fixo no topo da seção enquanto Serviços rola por cima */}
       <div className="pointer-events-none absolute top-0 left-0 right-0 z-0 h-screen overflow-hidden">
         <SobreNos />

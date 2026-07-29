@@ -68,13 +68,13 @@ export function Equipe() {
               A EQUIPE
             </span>
           </div>
-          <div className="equipe-title overflow-hidden mt-1">
-            <span
-              className="block font-serif italic text-brand-red leading-[0.92]"
-              style={{ fontSize: "clamp(56px,9vw,140px)" }}
-            >
-              Revelô
-            </span>
+          <div className="equipe-title overflow-hidden mt-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/marca/revelo-wordmark.svg"
+              alt="Revelô"
+              className="block h-[clamp(64px,9.5vw,112px)] w-auto"
+            />
           </div>
         </div>
 

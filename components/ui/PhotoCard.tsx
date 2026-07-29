@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { gsap } from "@/lib/gsap";
 import { ImagePlaceholder } from "./ImagePlaceholder";
@@ -13,32 +13,48 @@ interface PhotoCardProps {
 
 export function PhotoCard({ title, category, src, alt }: PhotoCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const rXTo = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
-  const rYTo = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
+  const tilt = useRef({ x: 0, y: 0 });
+  const tiltXTo = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
+  const tiltYTo = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
   const hasMeta = Boolean(title || category);
 
-  function onEnter() {
+  useEffect(() => {
     const el = cardRef.current;
     if (!el) return;
-    gsap.set(el, { transformPerspective: 700 });
-    rXTo.current = gsap.quickTo(el, "rotateY", { duration: 0.5, ease: "power3.out" });
-    rYTo.current = gsap.quickTo(el, "rotateX", { duration: 0.5, ease: "power3.out" });
-  }
+
+    const applyTilt = () => {
+      el.style.transform = `perspective(700px) rotateY(${tilt.current.x}deg) rotateX(${tilt.current.y}deg)`;
+    };
+
+    const config = { duration: 0.5, ease: "power3.out", onUpdate: applyTilt };
+
+    tiltXTo.current = gsap.quickTo(tilt.current, "x", config);
+    tiltYTo.current = gsap.quickTo(tilt.current, "y", config);
+
+    return () => {
+      gsap.killTweensOf(tilt.current);
+      tilt.current.x = 0;
+      tilt.current.y = 0;
+      el.style.transform = "";
+      tiltXTo.current = null;
+      tiltYTo.current = null;
+    };
+  }, []);
 
   function onMove(e: React.MouseEvent<HTMLDivElement>) {
     const el = cardRef.current;
-    if (!el || !rXTo.current || !rYTo.current) return;
+    if (!el || !tiltXTo.current || !tiltYTo.current) return;
+
     const r = el.getBoundingClientRect();
     const nx = ((e.clientX - r.left) / r.width - 0.5) * 2;
     const ny = ((e.clientY - r.top) / r.height - 0.5) * 2;
-    rXTo.current(nx * 8);
-    rYTo.current(-ny * 5);
+    tiltXTo.current(nx * 8);
+    tiltYTo.current(-ny * 5);
   }
 
   function onLeave() {
-    const el = cardRef.current;
-    if (!el) return;
-    gsap.to(el, { rotateX: 0, rotateY: 0, duration: 0.7, ease: "power3.out" });
+    tiltXTo.current?.(0);
+    tiltYTo.current?.(0);
   }
 
   return (
@@ -46,7 +62,6 @@ export function PhotoCard({ title, category, src, alt }: PhotoCardProps) {
       ref={cardRef}
       className="group relative aspect-[3/4] w-full cursor-pointer overflow-hidden rounded-none border border-brand-cream/5 bg-brand-dark-800"
       style={{ transformStyle: "preserve-3d" }}
-      onMouseEnter={onEnter}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
     >

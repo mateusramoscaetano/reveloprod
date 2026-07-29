@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
+import { Draggable } from "gsap/Draggable";
+import { InertiaPlugin } from "gsap/InertiaPlugin";
 
 const testimonials = [
   {
@@ -34,67 +36,142 @@ interface TestimonialCarouselProps {
   compact?: boolean;
 }
 
+const LOOP_DURATION = 14;
+
 export function TestimonialCarousel({ compact = false }: TestimonialCarouselProps) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const tweenRef = useRef<gsap.core.Tween | null>(null);
+  const positionRef = useRef(0);
+  const pausedRef = useRef(false);
 
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
 
-    tweenRef.current = gsap.to(track, {
-      xPercent: -50,
-      duration: compact ? 28 : 35,
-      ease: "none",
-      repeat: -1,
+    gsap.registerPlugin(Draggable, InertiaPlugin);
+
+    const getHalf = () => track.scrollWidth / 2;
+
+    const wrapX = (x: number) => {
+      const half = getHalf();
+      if (!half) return x;
+      return gsap.utils.wrap(-half, 0, x);
+    };
+
+    const syncPosition = (x: number) => {
+      positionRef.current = wrapX(x);
+      gsap.set(track, { x: positionRef.current });
+      return positionRef.current;
+    };
+
+    const tick = () => {
+      if (pausedRef.current) return;
+
+      const half = getHalf();
+      if (!half) return;
+
+      const speed = half / LOOP_DURATION;
+      positionRef.current -= speed * (gsap.ticker.deltaRatio() / 60);
+
+      if (positionRef.current <= -half) {
+        positionRef.current += half;
+      }
+
+      gsap.set(track, { x: positionRef.current });
+    };
+
+    gsap.ticker.add(tick);
+
+    const [draggable] = Draggable.create(track, {
+      type: "x",
+      inertia: true,
+      cursor: compact ? "default" : "grab",
+      activeCursor: "grabbing",
+      onPress() {
+        pausedRef.current = true;
+      },
+      onDrag() {
+        syncPosition(this.x);
+        this.update();
+      },
+      onThrowUpdate() {
+        syncPosition(this.x);
+        this.update();
+      },
+      onRelease() {
+        syncPosition(gsap.getProperty(track, "x") as number);
+        this.update();
+        if (!this.isThrowing) {
+          pausedRef.current = false;
+        }
+      },
+      onThrowComplete() {
+        syncPosition(gsap.getProperty(track, "x") as number);
+        this.update();
+        pausedRef.current = false;
+      },
     });
 
-    const pause = () => tweenRef.current?.pause();
-    const resume = () => tweenRef.current?.resume();
-    track.addEventListener("mouseenter", pause);
-    track.addEventListener("mouseleave", resume);
+    const onResize = () => {
+      syncPosition(positionRef.current);
+      draggable.update();
+    };
+
+    window.addEventListener("resize", onResize);
 
     return () => {
-      tweenRef.current?.kill();
-      track.removeEventListener("mouseenter", pause);
-      track.removeEventListener("mouseleave", resume);
+      gsap.ticker.remove(tick);
+      draggable.kill();
+      window.removeEventListener("resize", onResize);
     };
   }, [compact]);
 
   const allItems = [...testimonials, ...testimonials];
 
   return (
-    <div className="w-full overflow-x-hidden overflow-y-visible">
-      <div ref={trackRef} className="flex gap-3 w-max">
+    <div
+      ref={wrapperRef}
+      className={`w-full overflow-hidden ${compact ? "" : "cursor-grab active:cursor-grabbing"}`}
+    >
+      <div
+        ref={trackRef}
+        className="flex w-max gap-4 py-2 will-change-transform select-none touch-pan-y md:gap-6"
+      >
         {allItems.map((t, i) => (
           <div
             key={i}
             className={
               compact
-                ? "shrink-0 w-[220px] md:w-[260px] border border-brand-cream/10 bg-brand-dark/40 px-4 py-3 flex flex-col gap-2"
-                : "shrink-0 w-[280px] md:w-[320px] border border-brand-cream/10 bg-brand-dark/40 p-6 flex flex-col gap-4"
+                ? "flex w-[220px] shrink-0 flex-col gap-2 border border-brand-cream/10 bg-brand-dark/40 px-4 py-3 md:w-[260px]"
+                : "flex w-[min(85vw,400px)] shrink-0 flex-col gap-5 border border-brand-cream/15 bg-brand-cream/5 px-8 py-8 md:w-[400px]"
             }
           >
             <p
               className={
                 compact
-                  ? "font-serif italic text-[13px] text-brand-cream/75 leading-snug  tracking-wide line-clamp-2"
-                  : "font-serif italic text-[15px] md:text-[16px] text-brand-cream/75 tracking leading-relaxed "
+                  ? "line-clamp-2 font-serif text-[13px] leading-snug tracking-wide text-brand-cream/75"
+                  : "font-serif text-[18px] leading-relaxed text-brand-cream/90 italic md:text-[20px]"
               }
             >
               &ldquo;{t.quote}&rdquo;
             </p>
-            <div className={compact ? "flex items-baseline justify-between gap-2" : "mt-auto pt-2 border-t border-brand-cream/10"}>
+            <div
+              className={
+                compact
+                  ? "flex items-baseline justify-between gap-2"
+                  : "mt-auto border-t border-brand-cream/10 pt-2"
+              }
+            >
               <p
                 className={
                   compact
-                    ? "font-sans font-black uppercase text-brand-cream text-[10px] tracking-[0.12em] truncate"
-                    : "font-sans font-black uppercase text-brand-cream text-[12px] tracking-[0.12em]"
+                    ? "truncate font-sans text-[10px] font-black uppercase tracking-[0.12em] text-brand-cream"
+                    : "font-sans text-[12px] font-black uppercase tracking-[0.12em] text-brand-cream"
                 }
               >
                 {t.author}
               </p>
-              <p className="font-mono text-[8px] uppercase tracking-widest text-brand-cream/35 shrink-0">
+              <p className="shrink-0 font-mono text-[8px] uppercase tracking-widest text-brand-cream/35">
                 {t.year}
               </p>
             </div>

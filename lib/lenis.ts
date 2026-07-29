@@ -1,7 +1,27 @@
 import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
+export const NAV_OFFSET = -56;
+
+let lenisInstance: Lenis | null = null;
+
+export function getLenis() {
+  return lenisInstance;
+}
+
+export function scrollToHash(hash: string, offset = NAV_OFFSET) {
+  if (!lenisInstance) return false;
+
+  const target = document.querySelector(hash);
+  if (!target || !(target instanceof HTMLElement)) return false;
+
+  lenisInstance.scrollTo(target, { offset });
+  return true;
+}
+
 export function initLenis() {
+  if (lenisInstance) return lenisInstance;
+
   const lenis = new Lenis({
     duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -41,10 +61,12 @@ export function initLenis() {
     gsap.ticker.remove(onTicker);
     ScrollTrigger.scrollerProxy(document.documentElement);
     originalDestroy();
+    lenisInstance = null;
     requestAnimationFrame(() => ScrollTrigger.refresh());
   };
 
   requestAnimationFrame(() => ScrollTrigger.refresh());
 
+  lenisInstance = lenis;
   return lenis;
 }

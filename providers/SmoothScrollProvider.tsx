@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { initLenis } from "@/lib/lenis";
+import { initLenis, scrollToHash } from "@/lib/lenis";
 
 export function SmoothScrollProvider({
   children,
@@ -9,7 +9,20 @@ export function SmoothScrollProvider({
 }) {
   useEffect(() => {
     const lenis = initLenis();
-    return () => lenis.destroy();
+
+    const onHashChange = () => {
+      const hash = window.location.hash;
+      if (!hash || hash === "#") return;
+      scrollToHash(hash);
+    };
+
+    window.addEventListener("hashchange", onHashChange);
+    onHashChange();
+
+    return () => {
+      window.removeEventListener("hashchange", onHashChange);
+      lenis.destroy();
+    };
   }, []);
 
   return <>{children}</>;

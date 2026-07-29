@@ -2,11 +2,12 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { MarcaAsset } from "@/components/marca/MarcaAsset";
+import { HashLink } from "@/components/ui/HashLink";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const asset3Ref = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLAnchorElement>(null);
+  const ctaRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const section = ref.current;
@@ -28,30 +29,16 @@ export function Hero() {
         ease: "power3.out",
         delay: 0.8,
       });
-      gsap.from(".hero-photo", {
-        opacity: 0,
-        scaleY: 0.96,
-        duration: 1,
-        ease: "power3.out",
-        delay: 0.5,
-        transformOrigin: "top center",
-      });
 
-      gsap.from(".hero-marca-deco", {
-        opacity: 0,
-        scale: 0.92,
-        duration: 1.1,
-        ease: "power3.out",
-        delay: 0.65,
-      });
-
-      gsap.from(asset3Ref.current, {
-        opacity: 0,
-        scale: 0.85,
-        duration: 1.4,
-        ease: "power3.out",
-        delay: 0.9,
-      });
+      if (asset3Ref.current) {
+        gsap.from(asset3Ref.current, {
+          opacity: 0,
+          scale: 0.85,
+          duration: 1.4,
+          ease: "power3.out",
+          delay: 0.9,
+        });
+      }
 
       gsap.to(".hero-bg", {
         y: 120,
@@ -64,36 +51,26 @@ export function Hero() {
         },
       });
 
-      gsap.to(".hero-marca-deco", {
-        y: -40,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1.2,
-        },
-      });
+      if (asset3Ref.current) {
+        gsap.to(asset3Ref.current, {
+          rotation: 360,
+          duration: 100,
+          ease: "none",
+          repeat: -1,
+          transformOrigin: "center center",
+        });
 
-      // Asset-3: slow infinite rotation + parallax on scroll
-      gsap.to(asset3Ref.current, {
-        rotation: 360,
-        duration: 100,
-        ease: "none",
-        repeat: -1,
-        transformOrigin: "center center",
-      });
-
-      gsap.to(asset3Ref.current, {
-        y: -80,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1.5,
-        },
-      });
+        gsap.to(asset3Ref.current, {
+          y: -80,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1.5,
+          },
+        });
+      }
     }, section);
 
     // Magnetic CTA
@@ -175,32 +152,33 @@ export function Hero() {
         >
           <div className="flex flex-col gap-y-2 md:gap-y-2.5">
             <div className="overflow-hidden">
-              <h1 className="hero-line font-sans-tight font-black uppercase tracking-tight text-brand-cream leading-[inherit] text-[1.5em]">
+              <h1 className="hero-line font-sans-tight font-black uppercase tracking-tight text-brand-cream leading-[inherit]">
                 REVELAMOS
               </h1>
             </div>
 
             <div className="overflow-hidden">
-              <h1 className="hero-line font-serif italic text-brand-cream leading-[inherit] text-[1.5em] pb-[0.06em]">
+              <h1 className="hero-line font-serif italic text-brand-cream leading-[inherit] pb-[0.06em]">
                 aquilo
               </h1>
             </div>
 
             <div className="overflow-hidden">
-              <h1 className="hero-line font-sans-tight font-black uppercase tracking-tight text-brand-cream leading-[inherit] text-[1em]">
+              <h1 className="hero-line font-sans-tight font-black uppercase tracking-tight text-brand-cream leading-[inherit]">
                 QUE SE É
               </h1>
             </div>
 
             <div className="overflow-hidden">
-              <div className="flex flex-wrap items-baseline gap-x-[0.28em] gap-y-1">
-                <h1 className="hero-line font-serif italic text-brand-cream leading-[inherit] text-[1.5em] shrink-0 pb-[0.06em]">
-                  incapaz
-                </h1>
-                <h1 className="hero-line font-sans-tight font-black uppercase tracking-tight text-brand-dark leading-[inherit] text-[1em] min-w-0">
-                  DE ENXERGAR.
-                </h1>
-              </div>
+              <h1 className="hero-line font-serif italic text-brand-cream leading-[inherit] pb-[0.06em]">
+                incapaz
+              </h1>
+            </div>
+
+            <div className="overflow-hidden">
+              <h1 className="hero-line font-sans-tight font-black uppercase tracking-tight text-brand-dark leading-[inherit]">
+                DE ENXERGAR.
+              </h1>
             </div>
           </div>
         </div>
@@ -212,14 +190,15 @@ export function Hero() {
         <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-brand-cream/40">
           Formaturas · Family · Eventos · Estúdios · Marcas · Corporativos
         </span>
-        <a
-          ref={ctaRef}
-          href="#contato"
-          className="font-mono text-[10px] uppercase tracking-widest text-brand-cream/60 hover:text-brand-cream transition-colors group inline-flex items-center gap-1"
-        >
-          fale conosco
-          <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
-        </a>
+        <span ref={ctaRef} className="inline-block">
+          <HashLink
+            hash="#contato"
+            className="font-mono text-[10px] uppercase tracking-widest text-brand-cream/60 hover:text-brand-cream transition-colors group inline-flex items-center gap-1"
+          >
+            fale conosco
+            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </HashLink>
+        </span>
       </div>
     </section>
   );

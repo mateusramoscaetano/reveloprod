@@ -143,14 +143,13 @@ export function Fotos() {
             </div>
           ))}
 
-          <div className="foto-logo sm:col-span-1 md:col-span-2 flex h-full max-h-[574px] min-h-0 w-full items-center justify-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/marca/asset-1.svg"
-              alt=""
-              aria-hidden
-              className="h-full w-full max-h-[574px] scale-50 "
-            />
+          <div className="foto-logo sm:col-span-1 md:col-span-2 flex h-full max-h-[574px] min-h-[200px] w-full items-center justify-center border border-brand-cream/10 bg-brand-cream/5 px-8 py-10 md:px-12">
+            <p
+              className="font-serif italic text-brand-cream/80 text-center leading-snug tracking-wide"
+              style={{ fontSize: "clamp(18px,2.2vw,28px)" }}
+            >
+              Momentos que continuam vivos através das nossas lentes.
+            </p>
           </div>
         </div>
       </div>

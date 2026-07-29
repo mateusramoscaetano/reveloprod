@@ -2,6 +2,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
+import { HashLink } from "@/components/ui/HashLink";
 
 export function Footer() {
   const ref = useRef<HTMLElement>(null);
@@ -99,8 +100,9 @@ export function Footer() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.svg" alt="Revelô" className="h-[20px] w-auto" />
             <p className="font-sans text-[14px] text-brand-cream/55 leading-relaxed max-w-xs">
-              Momentos revelados com alma. Fotografia e vídeo para formaturas,
-              famílias, eventos, estúdios, marcas e corporativos.
+              Especialistas em transformar momentos em memórias através da
+              fotografia e do audiovisual para formaturas, eventos, famílias e
+              marcas.
             </p>
             <p className="font-mono text-[10px] uppercase tracking-widest text-brand-cream/25">
               Part of Atmosfera · Desde 2019
@@ -127,20 +129,30 @@ export function Footer() {
             </div>
             <div className="flex flex-col gap-2 pt-3 border-t border-brand-cream/10">
               {[
-                { label: "A Revelô", href: "#sobre" },
-                { label: "O que fazemos", href: "#servicos" },
-                { label: "Equipe", href: "#equipe" },
+                { label: "A Revelô", hash: "#sobre" },
+                { label: "O que fazemos", hash: "#servicos" },
+                { label: "Equipe", hash: "#equipe" },
                 { label: "Vídeos", href: "/videos" },
                 { label: "Fotos", href: "/fotos" },
-              ].map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="font-mono text-[10px] uppercase tracking-widest text-brand-cream/35 hover:text-brand-cream transition-colors duration-200"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              ].map((link) =>
+                "hash" in link && link.hash ? (
+                  <HashLink
+                    key={link.hash}
+                    hash={link.hash}
+                    className="font-mono text-[10px] uppercase tracking-widest text-brand-cream/35 hover:text-brand-cream transition-colors duration-200"
+                  >
+                    {link.label}
+                  </HashLink>
+                ) : (
+                  <Link
+                    key={link.href}
+                    href={link.href!}
+                    className="font-mono text-[10px] uppercase tracking-widest text-brand-cream/35 hover:text-brand-cream transition-colors duration-200"
+                  >
+                    {link.label}
+                  </Link>
+                )
+              )}
             </div>
           </div>
 

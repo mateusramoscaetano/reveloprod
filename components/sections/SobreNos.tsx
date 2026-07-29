@@ -2,7 +2,6 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
-import { TestimonialCarousel } from "@/components/ui/TestimonialCarousel";
 
 export function SobreNos() {
   const ref = useRef<HTMLElement>(null);
@@ -30,7 +29,6 @@ export function SobreNos() {
 
   return (
     <section
-      id="sobre"
       ref={ref}
       className="box-border flex h-dvh flex-col overflow-hidden bg-brand-cream/35 pt-14 md:pt-16"
     >
@@ -44,7 +42,7 @@ export function SobreNos() {
                   className="sobre-headline font-serif text-brand-cream leading-[0.95]"
                   style={{ fontSize: "clamp(18px,4.5vw,48px)" }}
                 >
-                  Reconhecemos as transições e
+                  Reconhecemos as transições
                 </h2>
               </div>
               <div className="overflow-hidden pb-[0.08em]">
@@ -52,7 +50,8 @@ export function SobreNos() {
                   className="sobre-headline font-serif italic text-brand-pink leading-[0.95]"
                   style={{ fontSize: "clamp(18px,4.5vw,48px)" }}
                 >
-                  documentamos cada uma delas
+                  e documentamos{" "}
+                  <span className="whitespace-nowrap">cada uma delas</span>
                 </h2>
               </div>
             </div>
@@ -86,10 +85,6 @@ export function SobreNos() {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="mt-3 shrink-0 w-full border-t border-brand-cream/10 pt-2 pb-3 md:mt-4 md:pb-4">
-        <TestimonialCarousel compact />
       </div>
     </section>
   );

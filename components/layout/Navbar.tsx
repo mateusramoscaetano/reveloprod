@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
+import { HashLink } from "@/components/ui/HashLink";
 
 export function Navbar() {
   const ref = useRef<HTMLElement>(null);
@@ -47,30 +48,39 @@ export function Navbar() {
         {/* Links centrais */}
         <ul className="hidden md:flex items-center gap-8">
           {[
-            { label: "A Revelô", href: "#sobre" },
-            { label: "O que fazemos", href: "#servicos" },
-            { label: "Equipe", href: "#equipe" },
+            { label: "A Revelô", hash: "#sobre" },
+            { label: "O que fazemos", hash: "#servicos" },
+            { label: "Equipe", hash: "#equipe" },
             { label: "Vídeos", href: "/videos" },
             { label: "Fotos", href: "/fotos" },
           ].map((item) => (
-            <li key={item.href} className="nav-el">
-              <Link
-                href={item.href}
-                className="font-mono text-[10px] uppercase tracking-widest text-brand-cream/60 hover:text-brand-cream transition-colors duration-200"
-              >
-                {item.label}
-              </Link>
+            <li key={item.hash ?? item.href} className="nav-el">
+              {"hash" in item && item.hash ? (
+                <HashLink
+                  hash={item.hash}
+                  className="font-mono text-[10px] uppercase tracking-widest text-brand-cream/60 hover:text-brand-cream transition-colors duration-200"
+                >
+                  {item.label}
+                </HashLink>
+              ) : (
+                <Link
+                  href={item.href!}
+                  className="font-mono text-[10px] uppercase tracking-widest text-brand-cream/60 hover:text-brand-cream transition-colors duration-200"
+                >
+                  {item.label}
+                </Link>
+              )}
             </li>
           ))}
         </ul>
 
         {/* CTA */}
-        <Link
-          href="#contato"
+        <HashLink
+          hash="#contato"
           className="nav-el bg-brand-red text-brand-cream rounded-none px-5 py-2.5 font-sans font-black uppercase text-[12px] tracking-wider hover:bg-brand-pink hover:text-brand-dark transition-colors duration-300"
         >
           Contato
-        </Link>
+        </HashLink>
       </div>
     </nav>
   );
