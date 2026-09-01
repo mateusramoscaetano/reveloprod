@@ -4,7 +4,6 @@ import { StickyReveal } from "@/components/sections/StickyReveal";
 import { Depoimentos } from "@/components/sections/Depoimentos";
 import { Videos } from "@/components/sections/Videos";
 import { Fotos } from "@/components/sections/Fotos";
-import { Equipe } from "@/components/sections/Equipe";
 import { Diferenciais } from "@/components/sections/Diferenciais";
 import { Footer } from "@/components/sections/Footer";
 
@@ -18,7 +17,6 @@ export default function Home() {
       
         <Videos />
         <Fotos />
-        <Equipe />
         <Depoimentos />
         <Diferenciais />
       </main>

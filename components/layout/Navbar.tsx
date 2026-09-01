@@ -50,7 +50,6 @@ export function Navbar() {
           {[
             { label: "A Revelô", hash: "#sobre" },
             { label: "O que fazemos", hash: "#servicos" },
-            { label: "Equipe", hash: "#equipe" },
             { label: "Vídeos", href: "/videos" },
             { label: "Fotos", href: "/fotos" },
           ].map((item) => (

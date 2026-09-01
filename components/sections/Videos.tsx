@@ -4,13 +4,7 @@ import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 import { VideoCard } from "@/components/ui/VideoCard";
 import { MarcaAsset } from "@/components/marca/MarcaAsset";
-
-const videos = [
-  { title: "Medicina UP 18", category: "Estúdio", year: "2024" },
-  { title: "Fashion Film", category: "Marca", year: "2024" },
-  { title: "Réveillon Arcanjos", category: "Evento", year: "2024" },
-  { title: "Turma de Direito PUCPR", category: "Formatura", year: "2023" },
-];
+import { featuredVideos } from "@/lib/videos";
 
 export function Videos() {
   const ref = useRef<HTMLElement>(null);
@@ -97,8 +91,8 @@ export function Videos() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {videos.map((v, i) => (
-            <div key={i} className="vid-card">
+          {featuredVideos.map((v) => (
+            <div key={v.id} className="vid-card">
               <VideoCard {...v} />
             </div>
           ))}

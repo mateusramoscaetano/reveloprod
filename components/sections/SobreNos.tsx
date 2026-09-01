@@ -1,7 +1,10 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { VideoCard } from "@/components/ui/VideoCard";
+import { getVideoById } from "@/lib/videos";
+
+const sobreVideo = getVideoById("up-17");
 
 export function SobreNos() {
   const ref = useRef<HTMLElement>(null);
@@ -75,7 +78,7 @@ export function SobreNos() {
           {/* Coluna direita — 50% */}
           <div className="flex min-w-0 flex-col gap-2.5 md:gap-3">
             <div className="w-full min-h-[200px] flex-1 overflow-hidden border border-brand-cream/10 md:min-h-[280px] lg:min-h-[320px]">
-              <ImagePlaceholder aspectRatio="video" fit="fill" label="vídeo" />
+              <VideoCard {...sobreVideo} showMeta={false} className="h-full" />
             </div>
 
             <div className="inline-block w-fit max-w-full bg-brand-red px-3 py-1.5 md:px-4 md:py-2">

@@ -9,6 +9,15 @@ export function getLenis() {
   return lenisInstance;
 }
 
+export function scrollToTop(immediate = true) {
+  if (lenisInstance) {
+    lenisInstance.scrollTo(0, { immediate });
+    return;
+  }
+
+  window.scrollTo({ top: 0, behavior: immediate ? "auto" : "smooth" });
+}
+
 export function scrollToHash(hash: string, offset = NAV_OFFSET) {
   if (!lenisInstance) return false;
 

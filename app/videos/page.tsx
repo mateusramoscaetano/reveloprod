@@ -5,17 +5,7 @@ import { VideoCard } from "@/components/ui/VideoCard";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { MarcaPattern } from "@/components/marca/MarcaPattern";
-
-const allVideos = [
-  { title: "Medicina UP 18", category: "Estúdio", year: "2024" },
-  { title: "Fashion Film", category: "Marca", year: "2024" },
-  { title: "Réveillon Arcanjos", category: "Evento", year: "2024" },
-  { title: "Turma de Direito PUCPR", category: "Formatura", year: "2023" },
-  { title: "Folianópolis", category: "Evento", year: "2023" },
-  { title: "Family Day", category: "Family", year: "2023" },
-  { title: "Baile de Formatura", category: "Formatura", year: "2022" },
-  { title: "Evento Corporativo", category: "Corporativo", year: "2022" },
-];
+import { videos } from "@/lib/videos";
 
 export default function VideosPage() {
   const ref = useRef<HTMLDivElement>(null);
@@ -74,8 +64,8 @@ export default function VideosPage() {
       <section className="bg-brand-cream py-24">
         <div className="max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {allVideos.map((v, i) => (
-              <div key={i} className="vpage-card">
+            {videos.map((v) => (
+              <div key={v.id} className="vpage-card">
                 <VideoCard {...v} />
               </div>
             ))}
